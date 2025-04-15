@@ -2973,11 +2973,10 @@ app.get('/api/admin/promotions',async (req, res)=> {
   });
 
 // Khởi động server và lắng nghe kết nối trên cổng 4000
-app.listen(port, (err) => {
+app.listen(port, '0.0.0.0', (err) => {
     if (err) {
         console.error("Error starting server:", err);
     } else {
         console.log(`Server is running and listening on port ${port}`);
-        
     }
 });
