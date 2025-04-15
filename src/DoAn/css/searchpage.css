@@ -1,0 +1,17 @@
+.list-productRelated input.searchinput{
+    width: calc(100% - 55px);
+    outline: none;
+    height: 55px;
+    padding: 0 20px;
+    background: #ededed;
+    border: 0;
+    box-shadow: none;
+}
+.search-box form{
+    display: flex;
+}
+.search-again {
+    padding: 0px 16px;
+    background-color: #276880;
+    color: #fff;
+}

@@ -1,0 +1,124 @@
+.ant-layout{
+    min-height: 100vh;
+}
+.ant-menu-title-content{
+    width: 70px;
+}
+.ant-layout-sider-children{
+    position: fixed !important;
+}
+.ant-menu.ant-menu-inline-collapsed{
+    width: 70px !important;
+}
+.ant-table-cell-img{
+    width: 15%;
+}
+.ant-pagination {
+    text-align: right;
+}
+.ant-pagination-item{
+    color: #1677ff;
+    transition: ease-in-out 0.2s;
+}
+.ant-pagination-item:hover{
+    color: #fff;
+    background-color: #1677ff;
+}
+.ant-menu-inline .ant-menu-item{
+    width: 100%;
+}
+.btn-Add {
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.sider-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0; /* Điều chỉnh nếu cần thiết */
+    width: 200px; /* Độ rộng của sider khi mở ra */
+    z-index: 1000; /* Điều chỉnh z-index nếu cần thiết */
+  }
+  .ql-container.ql-snow{
+    height: 80%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Adjust if you want some space below the buttons */
+  }
+  
+  .button-container .ant-btn {
+    margin-right: 10px;
+    height: 40px;
+  }
+
+  /* css Modal viewalldetail Danh Mục*/
+  /* Style for the product details modal */
+.product-details-modal {
+    padding: 20px;
+  }
+  
+  /* Title of the modal */
+  .product-details-modal .ant-modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Style for the list of products */
+  .product-details-modal ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Style for each product item */
+  .product-details-modal li {
+    margin-bottom: 20px; /* Space between items */
+    padding: 15px;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Hover effect for list items */
+  .product-details-modal li:hover {
+    transform: translateY(-5px); /* Lift the item slightly */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style for the room type title */
+  .product-details-modal h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  /* Style for the product description */
+  .product-details-modal p {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+  }
+  
+  /* Style for product links */
+  .product-details-modal p span {
+    color: #1890ff; /* Blue color for product links */
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .product-details-modal p span:hover {
+    color: #40a9ff; /* Lighter blue on hover */
+  }
+  

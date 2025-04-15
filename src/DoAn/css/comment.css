@@ -1,0 +1,45 @@
+.comment-list {
+    margin: 20px 0; /* Add some margin to the comment list */
+    padding: 0; /* Remove default padding */
+    border: 1px solid #ddd; /* Optional: add a border around the comment list */
+    border-radius: 5px; /* Optional: rounded corners */
+    background-color: #f9f9f9; /* Optional: background color */
+}
+
+.comment-list h4 {
+    text-align: center; /* Center the header */
+    margin: 10px 0; /* Space above and below the header */
+    font-size: 1.5em; /* Increase font size for the header */
+}
+
+.comment-item {
+    display: block;
+    background-color: #fff; /* White background for each comment */
+    border: 1px solid #ddd; /* Border for each comment */
+    border-radius: 5px; /* Rounded corners for each comment */
+    padding: 15px; /* Add some padding around each comment */
+    margin: 10px 30px 10px 0; /* Space between each comment item */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow effect */
+}
+
+.comment-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow on hover for emphasis */
+}
+
+.comment-author {
+    font-weight: bold; /* Make the author's name bold */
+    font-size: 17px;
+}
+
+.comment-content {
+    margin: 10px 0;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.comment-date {
+    color: #888; /* Gray color for the date */
+    font-size: 0.9em; /* Slightly smaller font size for the date */
+}

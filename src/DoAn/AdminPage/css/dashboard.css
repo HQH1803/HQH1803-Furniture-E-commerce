@@ -1,0 +1,232 @@
+/* Cơ bản cho Dashboard */
+.dashboard {
+  background-color: #f4f7fc;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Chọn khoảng thời gian */
+.period-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.period-selector label {
+  font-size: 1.2rem;
+  color: #555;
+  font-weight: 500;
+  margin-right: 15px;
+}
+
+.period-selector select {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.period-selector select:focus {
+  border-color: #007bff;
+}
+
+/* Khu vực các metrics (doanh thu, sản phẩm bán chạy) */
+.metrics {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+/* Style cho mỗi metric */
+.metric, .top-products {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 48%;
+}
+
+.metric:hover, .top-products:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.metric h3, .top-products h3 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.metric p, .top-products p {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 400;
+}
+
+/* QuanLyTonKho phần riêng biệt */
+.inventory-management {
+  margin-top: 50px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.inventory-management h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* QuanLyTonKho.module.css */
+.qltk-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.qltk-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.qltk-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.qltk-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qltk-item:hover {
+  background-color: #f1f1f1;
+}
+
+.qltk-low-stock {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+.qltk-no-products {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+/* Tổng thể */
+.qltk-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.qltk-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.qltk-filter label {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #34495e;
+}
+
+.qltk-range-input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 80px;
+  text-align: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qltk-range-input:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+  outline: none;
+}
+
+.qltk-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.qltk-item:last-child {
+  border-bottom: none;
+}
+
+.qltk-item:hover {
+  background-color: #f9f9f9;
+}
+
+.qltk-item span {
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.qltk-low-stock {
+  color: #e74c3c;
+  font-weight: bold;
+  background: #ffc0b9;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Không có sản phẩm */
+.qltk-no-products {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 16px;
+  padding: 20px;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .metrics {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .metric, .top-products {
+    width: 100%;
+  }
+}
+

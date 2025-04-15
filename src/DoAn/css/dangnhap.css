@@ -1,0 +1,166 @@
+
+.login-link{
+    margin-left: 20px;
+}
+.login-link, .register-link {
+    margin-right: 15px;
+    margin-top: 9px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.login-link:hover, .register-link:hover {
+    color: #a67c52;
+}
+
+
+.register-link p {
+    font-size: 14px;
+    color: #333;
+}
+
+.register-link a {
+    color: #f37324;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+    color: #1e5468;
+}
+
+
+
+
+/* Container for the whole page */
+.login-container, .register-container{
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 30px;
+    width: 100%;
+    padding: 40px;
+}
+/* Form on the left side */
+.login-form, .register-form{
+  width: 50%;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  margin-left: 5%;
+}
+.register-form{
+    width: 40%;
+}
+.login-form h2, .register-form h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.social-login {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+
+.facebook-btn {
+  color: #3b5998;
+  border:1px solid #3b5998;
+  transition: 0.7s all;
+}
+.facebook-btn:hover {
+    color: #ffffff;
+    background-color:#3b5998;
+  }
+
+.login-methods {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+.forgot-password {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.forgot-password a {
+  color: #8b0000;
+  text-decoration: none;
+}
+.forgot-password:hover a {
+    color: #1e5468;
+  }
+
+.login-btn, .register-btn {
+  background-color: #276880;
+  color: white;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.login-btn:hover, .register-btn:hover {
+    background-color: #1e5468;
+}
+
+.lk-register, .lk-login {
+    margin-top: 20px;
+  }
+  
+  .lk-register a,.lk-login a {
+    color: #8b0000;
+    text-decoration: underline;
+  }
+  .lk-register a:hover,.lk-login  a:hover {
+      color: #1e5468;
+  }
+  /* Right image section */
+  .login-image{
+    width: 50%;
+    padding: 20px;
+  }
+  .register-image {
+    width: 60%;
+    padding: 20px;
+  }
+  .login-image img, .register-image img {
+    width: 100%;
+    height: 535px;
+    border-radius: 10px;
+  }
+  
+    .lk-login p,.lk-register p {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  
+    
+ 
+    
+    

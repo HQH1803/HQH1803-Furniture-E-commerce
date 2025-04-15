@@ -1,0 +1,230 @@
+.list_form_cart .expanded_message {
+    font-weight: 400;
+    font-size: 22px;
+}
+#layout-cart .order_cart_fix {
+    position: sticky;
+    top: 80px;
+}
+.wamper_order_cart .order_block {
+    border: 1px solid #dfe0e1;
+    padding: 20px 20px 10px;
+}
+.wamper_order_cart .order_block .order_title h2 {
+    font-weight: bold;
+    letter-spacing: 1.1px;
+    font-size: 20px;
+}
+.wamper_order_cart .order_block .order_total_price {
+    font-size: 16px;
+    padding-bottom: 10px;
+    border-top: 1px dotted #dfe0e1;
+    padding-top: 15px;
+    font-weight: bold;
+}
+.wamper_order_cart .order_block .order_total_price p {
+    margin: 0 0 10px;
+}
+.wamper_order_cart .order_block .order_total_price p span {
+    font-weight: bold;
+    float: right;
+    color: #ef683a;
+    font-size: 24px;
+}
+.wamper_order_cart .order_block .order_cart_action {
+    border-top: 1px dotted #dfe0e1;
+    padding-top: 15px;
+}
+.wamper_order_cart .order_block .order_cart_action .cart-buttons button {
+    width: 100%;
+    display: block;
+    background: #276880;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px 5px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 0;
+}
+.countine_order_cart {
+    display: block;
+    font-size: 16px;
+    margin: 10px 0 0;
+    text-align: center;
+}
+.countine_order_cart i {
+    margin-right: 10px;
+}
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+ table.table-cart {
+    margin-bottom: 30px;
+}
+ table.table-cart tr td.image {
+    text-align: center;
+    width: 110px;
+}
+ table.table-cart tr td {
+    padding: 20px 0;
+    vertical-align: top;
+}
+ table.table-cart tr td.image img {
+    max-width: 100px;
+}
+ table.table-cart tr td.item {
+    padding-left: 15px;
+}
+ table.table-cart tr td.item h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    padding-right: 40px;
+}
+ table.table-cart tr td.item p {
+    margin-bottom: 5px;
+}
+ table.table-cart tr td.item p del {
+    font-size: 12px;
+}
+.qty-click {
+    float: left;
+}
+.qty-click button.qty-btn {
+    background: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    color: #abafb2;
+    height: 25px;
+    padding: 0;
+    text-align: center;
+    width: 25px;
+    border: 1px solid #dadbdd;
+    border-radius: 0;
+    float: left;
+}
+.qty-click input.item-quantity {
+    background: #ededed;
+    font-weight: 500;
+    font-size: 15px;
+    height: 25px;
+    padding: 0;
+    text-align: center;
+    width: 35px;
+    border: 1px solid #dadbdd;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    float: left;
+}
+ table.table-cart tr td.item .price {
+    float: right;
+}
+ table.table-cart tr td.item .price span {
+    font-size: 16px;
+    padding-right: 0;
+    font-weight: 600;
+    color: #000;
+}
+table.table-cart tr td.remove a i{
+    font-size: 18px;
+}
+.heading-title {
+    margin: 0;
+}
+
+.out-of-stock .remove{
+    pointer-events: auto; /* Đảm bảo nút xoá có thể click được */
+}
+.out-of-stock button{
+    pointer-events: auto; /* Đảm bảo nút xoá có thể click được */
+}
+.stock-message{
+    color: #ff0202;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+/* cart.css */
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .row.pd_page {
+        flex-direction: column;
+    }
+    
+    .col-md-8, .col-md-4 {
+        width: 100%;
+    }
+
+    .order_cart_fix {
+        margin-top: 20px;
+    }
+
+    .list_item_cart {
+        overflow-x: auto;
+    }
+    
+    .table-cart {
+        font-size: 14px;
+    }
+
+    .qty {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .qty input {
+        width: 50px;
+        text-align: center;
+    }
+
+    .qtyminus, .qtyplus {
+        width: 30px;
+        height: 30px;
+    }
+
+    .product_image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .order_total_price p {
+        font-size: 16px;
+    }
+
+    .cart_note_new {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-cart td, .table-cart th {
+        padding: 5px;
+    }
+
+    .qty {
+        flex-direction: column;
+    }
+
+    .qty input {
+        margin: 5px 0;
+    }
+
+    .order_total_price p {
+        font-size: 14px;
+    }
+
+    .cart-note-new p {
+        font-size: 12px;
+    }
+
+    .heading-title h2 {
+        font-size: 18px;
+    }
+}

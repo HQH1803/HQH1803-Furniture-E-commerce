@@ -1,0 +1,170 @@
+.product-container {
+    display: flex;
+    padding: 45px 35px;
+    font-family: Arial, sans-serif;
+  }
+  .product-image{
+    width: 100%;
+  }
+  .product-image img {
+    width: 100%;
+    height: auto;
+  }
+  #productBody{
+    margin-top: 90px;
+  }
+  .product-details {
+    max-width: 420px;
+    margin-left: 20px;
+   
+  }
+  
+  .product-details h1 {
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  .product-price {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .product-price .pro-price-del {
+    color: #999999;
+    font-size: 14px;
+    margin: 6px 18px;
+}
+  .product-price .price{
+    color: #f94c43;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .product-current-price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .product-size,
+  .product-material,
+  .product-description {
+    margin: 20px 0;
+  }
+  
+  .product-quantity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    
+  }
+  
+  .product-quantity button {
+    background: #f5f5f5;
+    border: solid 1px #f5f5f5;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    outline: none;
+    height: 32px;
+    width: 32px;
+    text-align: center;
+    border-radius: 0;
+  }
+  
+  .product-quantity input {
+    background: #fff;
+    font-weight: 600;
+    height: 32px;
+    padding: 0;
+    text-align: center;
+    width: 70px;
+    border: 1px solid #f5f5f5;
+    float: left;
+    border-color: #f5f5f5;
+    -webkit-appearance: none;
+  }
+  .product-actions {
+    display: block;
+    margin: 25px 0;
+  }
+  
+  .add-to-cart,
+  .buy-now {
+    padding: 14px;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    height: 54px;
+    color: white;
+  }
+  .add-to-cart {
+    background: linear-gradient(to right, #27678f 0%, #27678f 50%, #fff 50%, #fff 100%);
+    background-size: 200% 100%; 
+    transition: background-position 1s, color 0.5s;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.add-to-cart:hover {
+    background-position: -100% 0;
+    border: 1px solid #27678f;
+    color: #27678f;
+}
+.buy-now {
+  background: linear-gradient(to right, #ef683a 0%, #ef683a 50%, #fff 50%, #fff 100%);
+  background-size: 200% 100%; 
+  transition: background-position 1s, color 0.5s;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.buy-now:hover {
+  background-position: -100% 0;
+  border: 1px solid #ef683a;
+  color: #ef683a;
+}
+.tab{
+  padding: 0;
+  justify-content: space-between;
+  display: flex;   
+  align-items: center;    
+}
+.tablinks {
+  flex: 1;                         /* Make each tab take up equal space */
+  padding: 10px;                  /* Add padding for clickable areas */
+  cursor: pointer;                 /* Change cursor on hover */
+  font-size: 16px;                /* Set font size */
+  text-align: center;             /* Center text inside each tab */
+  transition: background-color 0.3s; /* Smooth background color transition */
+  border: 1px solid transparent;   /* Set border */
+  border-radius: 5px;              /* Rounded corners */
+}
+
+.tabcontent {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;  
+}
+/* Active Tab */
+.tablinks.active {
+  background-color: #276880;      /* Background color for active tab */
+  color: white;                   /* Text color for active tab */
+}
+
+/* Hover Effect */
+.tablinks:hover {
+  background-color: rgba(0, 123, 255, 0.155); /* Light background on hover */
+}
+
+.contentMota{
+  padding: 10px 32px;
+  font-size: 16px;
+}
+
+
+  

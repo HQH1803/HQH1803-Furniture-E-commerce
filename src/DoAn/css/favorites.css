@@ -1,0 +1,92 @@
+/* Container cho mỗi sản phẩm yêu thích */
+.favorite-item {
+    display: flex;
+    flex-direction: row; /* Hiển thị các phần tử theo hàng ngang */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    justify-content: space-between; /* Căn chỉnh các phần tử với khoảng cách đều */
+    margin-bottom: 20px; /* Khoảng cách giữa các sản phẩm */
+    border-bottom: 1px solid #ddd; /* Đường gạch dưới phân tách các sản phẩm */
+    padding: 10px 0;
+}
+
+/* Container cho mỗi sản phẩm yêu thích */
+.favorite-item {
+    display: flex;
+    flex-direction: row; /* Hiển thị các phần tử theo hàng ngang */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    justify-content: space-between; /* Căn chỉnh các phần tử với khoảng cách đều */
+    margin-bottom: 20px; /* Khoảng cách giữa các sản phẩm */
+    border-bottom: 1px solid #ddd; /* Đường gạch dưới phân tách các sản phẩm */
+    padding: 10px 0;
+}
+
+/* Group tên sản phẩm và ngày thích */
+.favorite-product-details {
+    flex: 3; /* Chiếm nhiều không gian */
+    margin-left: 20px;
+    text-align: center;
+}
+
+/* Style cho tên sản phẩm */
+.favorite-item {
+    font-weight: bold;
+}
+.title-favorite{
+    text-align: center;
+    margin: 20px auto 50px;
+}
+/* Style cho ngày thích */
+.favorite-item .favorite-date {
+    color: #555;
+}
+
+/* Style cho hình ảnh sản phẩm */
+.favorite-item .product-image {
+    flex: 1; /* Hình ảnh chiếm ít không gian hơn */
+    text-align: center; /* Căn giữa hình ảnh */
+}
+
+/* Style cho nút xem chi tiết */
+.favorite-item .view-product {
+    flex: 1; /* Nút Xem chi tiết sản phẩm chiếm ít không gian */
+    text-align: center; /* Căn giữa nút */
+}
+
+.favorite-item img {
+    width: 100%; /* Hình ảnh sản phẩm có chiều rộng cố định */
+    height: 200px;
+}
+
+
+/* Style cho tên sản phẩm */
+.favorite-item {
+    font-weight: bold;
+}
+.title-favorite{
+    text-align: center;
+    margin: 20px auto 50px;
+}
+/* Style cho ngày thích */
+.favorite-item .favorite-date {
+    color: #555;
+}
+
+
+/* Style cho nút */
+.favorite-item button {
+    padding: 8px 15px;    
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.view-product button{
+    background-color: #4CAF50; /* Màu nền nút */
+}
+.remove-favorite button{
+    background-color:#ff4d4f
+}
+
+.favorite-item .view-product button:hover {
+    background-color: #2e8d32; /* Màu nền khi hover */
+}

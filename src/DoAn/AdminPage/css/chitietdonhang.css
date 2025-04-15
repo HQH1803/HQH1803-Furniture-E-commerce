@@ -1,0 +1,58 @@
+/* Đặt các kiểu chung cho modal */
+.custom-modal .ant-modal-content {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+  }
+  
+  /* Tiêu đề của modal */
+  .custom-modal .ant-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Nội dung của modal */
+  .custom-modal .ant-modal-body {
+    padding: 20px;
+  }
+  
+  /* Các mục chi tiết */
+  .custom-detail {
+    margin-bottom: 12px;
+  }
+  
+  .custom-detail p {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+  }
+  
+  .custom-detail strong {
+    font-weight: 600;
+    color: #000;
+  }
+  
+  /* Chỉnh sửa các nút bấm của modal */
+  .custom-modal .ant-modal-footer {
+    border-top: 1px solid #e8e8e8;
+  }
+  
+  .custom-modal .ant-btn {
+    border-radius: 4px;
+  }
+  
+  .custom-modal .ant-btn-primary {
+    background-color: #1890ff;
+    border-color: #1890ff;
+  }
+  
+  .custom-modal .ant-btn-primary:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+  
+  .custom-modal .ant-btn-default {
+    border-radius: 4px;
+  }
+  

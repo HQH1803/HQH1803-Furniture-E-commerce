@@ -1,0 +1,109 @@
+.checkout {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout h2,.checkout h3 {
+  text-align: center;
+  color: #2980b9;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Add space between input fields */
+  margin-bottom: 20px;
+}
+
+.checkout-form input, 
+.checkout-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+.checkout-form input:focus, 
+.checkout-form select:focus {
+  border-color: #2980b9; /* Highlight border on focus */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  margin: 10px 0; /* Add margin between cart items */
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details p {
+  margin: 5px 0; /* Add spacing between item details */
+  color: #34495e; /* Change text color for better readability */
+}
+
+.checkout-summary {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-total {
+  margin-top: 20px;
+  text-align: right; /* Align total amounts to the right */
+}
+
+.checkout-total p {
+  font-size: 1.2em;
+  color: #2c3e50;
+}
+
+.place-order-btn {
+  width: 100%;
+  padding: 15px;
+  background: #276880; /* Change button color to match the theme */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 20px;
+  transition: background 0.3s; /* Smooth transition for hover effect */
+}
+
+.place-order-btn:hover {
+  background: #1e4959; /* Darken button color on hover */
+}
+
+/* Error message styling */
+.error-message {
+  color: #c0392b;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}

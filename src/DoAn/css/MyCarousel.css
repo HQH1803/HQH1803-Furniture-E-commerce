@@ -1,0 +1,19 @@
+
+.carousel-item img {
+    width: 100%; /* Kích thước hình ảnh chiếm toàn bộ width của Carousel */
+    height: auto; /* Đảm bảo tỷ lệ khung hình ảnh được giữ nguyên */
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: #ef683a;
+    width: 50%;
+    height: 8%;
+    border-radius: 100%;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 5%; /* Kích thước của các nút điều hướng */
+  }
+  

@@ -1,0 +1,150 @@
+.container .news-container {
+  display: flex;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.sidebar {
+  width: 60%; /* Sidebar width */
+  padding: 20px;
+}
+
+.news-detail-page .sidebar{
+  width: 30%;
+  padding: 20px;
+}
+.news-article {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  transition: transform 0.2s; /* Smooth scale transition */
+}
+
+.news-article:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.news-post {
+  display: flex;
+}
+
+.news-thumbnail {
+  flex: 0 0 30%; /* Thumbnail width */
+  margin-right: 15px;
+}
+
+.news-thumbnail img {
+  max-width: 100%; /* Ensure images are responsive */
+  border-radius: 5px;
+  height: 195px;
+}
+
+.news-title {
+  font-size: 1.5em; /* Title font size */
+  margin: 0;
+  color: #333; /* Darker text for titles */
+}
+
+.news-meta {
+  display: inline-flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 0.9em; /* Smaller font for meta info */
+  color: #666; /* Lighter color for meta info */
+}
+
+
+.latest-news {
+  background-color: #fff; /* White background for latest news */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.latest-news h2 {
+  margin-bottom: 15px;
+}
+
+.latest-news-item {
+  display: inline;
+}
+.latest-news-item a{
+  display: flex;
+  margin-bottom: 15px;
+}
+.latest-news-item img {
+  height: 60px;
+  border-radius: 5px;
+  margin-right: 10px; /* Spacing between image and text */
+}
+
+.latest-news-content {
+  flex-grow: 1; /* Allow title and date to take the remaining space */
+}
+
+.latest-news-content h3 {
+  margin: 0;
+  font-size: 1.1em; /* Slightly smaller font size for titles */
+}
+
+.date {
+  color: #999; /* Lighter color for date */
+  font-size: 0.85em; /* Smaller font size for date */
+}
+
+
+
+
+
+/* Main container for the news detail page */
+.news-detail-page {
+  display: flex;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+
+/* Main content area for the news details */
+ .main-content-new {
+  width: 70%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Styling for the news title */
+.news-title {
+  font-size: 2em;
+}
+
+.news-date {
+  margin-right: 15px;
+}
+
+.news-views {
+  color: #888;
+}
+
+/* The main content of the news article */
+.news-content {
+  line-height: 1.8;
+  font-size: 1.1em;
+  color: #333;
+}
+.title-comment{
+  background-color: #276880;
+  color: #fff;
+  padding: 9px;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 40px;
+}
+.fb-share-button{
+  float: right;
+  bottom: 32px;
+}
+.wrapperAiAssEjoy{
+  visibility: hidden;
+}
