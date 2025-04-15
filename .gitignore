@@ -1,4 +1,21 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignore all .json files (for sensitive data like credentials)
+*.json
+
+# Ignore .env files (environment variables)
+*.env
+
+
+
+# Ignore log files
+*.log
+
+# Ignore build and dist directories
+build/
+dist/
+
+# Ignore specific file or directory (add any other sensitive files here)
+Project/noithattinie-26ad1991f3e1.json
 
 # dependencies
 /node_modules
