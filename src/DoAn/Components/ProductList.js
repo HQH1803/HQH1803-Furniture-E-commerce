@@ -1,12 +1,12 @@
 // ProductList.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import FilterSidebar from './FilterSidebar';
 import RelatedProducts from './RelatedProducts';
 import Product from './Product';
 import "../css/Products.css";
 
-const ProductList = ({ apiUrl, showCategories,title }) => {
+const ProductList = ({ apiUrl, showCategories, title }) => {
   const [sanpham, setSanpham] = useState([]);
   const [filteredSanpham, setFilteredSanpham] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +18,7 @@ const ProductList = ({ apiUrl, showCategories,title }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(apiUrl);
+        const response = await api.get(apiUrl);
         setSanpham(response.data);
         setFilteredSanpham(response.data);
       } catch (error) {

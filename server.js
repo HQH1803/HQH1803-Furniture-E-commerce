@@ -36,6 +36,7 @@ if (!port) {
     process.exit(1);
 }
 
+// Tạo kết nối pool
 const connection = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -51,6 +52,12 @@ const connection = mysql.createPool({
 connection.getConnection((err, connection) => {
     if (err) {
         console.error(`[${new Date().toISOString()}] Database connection error:`, err);
+        console.error('Database config:', {
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            database: process.env.DB_NAME,
+            port: process.env.DB_PORT
+        });
         return;
     }
     console.log(`[${new Date().toISOString()}] Database connected successfully`);
@@ -2720,7 +2727,7 @@ app.post("/api/tinh-doanh-thu", async (req, res) => {
 
 cron.schedule('59 23 * * *', async () => {
     try {
-      await axios.post('http://localhost:4000/api/tinh-doanh-thu');
+      await axios.post('http://https://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
       console.log('Đã cập nhật doanh thu');
     } catch (error) {
       console.error('Lỗi khi cập nhật doanh thu:', error);
