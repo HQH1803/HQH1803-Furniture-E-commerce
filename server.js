@@ -17,7 +17,7 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;  // Sử dụng PORT từ biến môi trường, mặc định là 4000
 
 const connection = mysql.createPool({
     host: process.env.DB_HOST,
