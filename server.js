@@ -26,13 +26,16 @@ const connection = mysql.createPool({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
   });
-// Serve static files from React
+
+// Phục vụ các static files từ thư mục build
 app.use(express.static(path.join(__dirname, 'build')));
 
+// Xử lý tất cả các routes khác bằng cách trả về index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
+console.log('Current directory:', __dirname);
+console.log('Looking for file at:', path.join(__dirname, 'build', 'index.html'));
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
