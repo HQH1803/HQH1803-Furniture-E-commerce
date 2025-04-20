@@ -10,7 +10,7 @@ function TuQuanAo() {
                 alt="Tủ Quần Áo"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/tu-quan-ao" showCategories={false} title="Tủ Quần Áo"/>
+            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/tu-quan-ao" showCategories={false} title="Tủ Quần Áo"/>
             
         </div>
     </div>

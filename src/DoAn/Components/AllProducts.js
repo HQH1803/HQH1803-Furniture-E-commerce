@@ -6,7 +6,7 @@ function AllProducts() {
 
   return (
     <div className="container">      
-        <ProductList apiUrl="http://localhost:4000/api/san-pham" showCategories={true} title="Tất Cả Sản Phẩm"/>
+        <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/san-pham" showCategories={true} title="Tất Cả Sản Phẩm"/>
       </div>
   );
 }

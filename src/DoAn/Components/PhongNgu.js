@@ -13,7 +13,7 @@ function PhongNgu() {
                 alt="Nội Thất Phòng Ngủ"/>
         </div>
         <div className='container'>
-            <ProductList apiUrl="http://localhost:4000/api/phong-ngu" showCategories={true} title="Sản phẩm Dành cho phòng ngủ"/>
+            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/phong-ngu" showCategories={true} title="Sản phẩm Dành cho phòng ngủ"/>
             
             <MoTaLoaiPhong id={2}/>
         </div>

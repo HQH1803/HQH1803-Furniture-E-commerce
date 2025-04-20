@@ -17,7 +17,7 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
   useEffect(() => {
     const fetchFavorites = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/favorites/${customerUser.email}`);
+            const response = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/favorites/${customerUser.email}`);
             setFavorites(new Set(response.data.favorites));
         } catch (error) {
             console.error('Lỗi khi lấy sản phẩm yêu thích:', error);
@@ -39,7 +39,7 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
 
         if (favorites.has(productId)) {
             // Nếu sản phẩm đã yêu thích, gọi API xóa
-            await axios.delete('http://localhost:4000/api/favorites', {
+            await axios.delete('http://furniture-e-commerce-wt2i.onrender.com/api/favorites', {
                 data: {
                     userEmail: customerUser.email,
                     productId: productId,
@@ -48,7 +48,7 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
             message.success('Đã bỏ yêu thích');
         } else {
             // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-            const response = await axios.post('http://localhost:4000/api/favorites', {
+            const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/favorites', {
                 user_email: customerUser.email,
                 product_id: productId,
             });

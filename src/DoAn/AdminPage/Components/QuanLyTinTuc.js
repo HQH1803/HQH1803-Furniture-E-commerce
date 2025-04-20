@@ -28,7 +28,7 @@ const News = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/admin/tin-tuc');
+      const response = await axios.get('http://furniture-e-commerce-wt2i.onrender.com/api/admin/tin-tuc');
       setNews(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách tin tức');
@@ -63,7 +63,7 @@ const News = () => {
 
   const handleDelete = async (newsId) => {
     try {
-      await axios.delete(`http://localhost:4000/api/admin/tin-tuc/${newsId}`);
+      await axios.delete(`http://furniture-e-commerce-wt2i.onrender.com/api/admin/tin-tuc/${newsId}`);
       setNews(news.filter(newsItem => newsItem.id !== newsId));
       message.success('Xóa tin tức thành công');
     } catch (error) {
@@ -88,11 +88,11 @@ const News = () => {
       values.hinh_anh = fileList[0]?.url || ''; 
       values.ngay_dang = moment().format('YYYY-MM-DD HH:mm:ss'); 
       if (isEditing) {
-        await axios.put(`http://localhost:4000/api/admin/tin-tuc/${currentNews.id}`, values);
+        await axios.put(`http://furniture-e-commerce-wt2i.onrender.com/api/admin/tin-tuc/${currentNews.id}`, values);
         setNews(news.map(newsItem => newsItem.id === currentNews.id ? { ...values, id: currentNews.id } : newsItem));
         message.success('Cập nhật tin tức thành công');
       } else {
-        const response = await axios.post('http://localhost:4000/api/admin/tin-tuc', values);
+        const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/admin/tin-tuc', values);
         setNews([...news, response.data]);
         message.success('Thêm tin tức thành công');
         fetchNews();
@@ -214,7 +214,7 @@ const News = () => {
             label="Hình Ảnh"
           >
             <Upload
-              action="http://localhost:4000/api/admin/upload"
+              action="http://furniture-e-commerce-wt2i.onrender.com/api/admin/upload"
               listType="picture-card"
               fileList={fileList} // Use fileList state
               onChange={handleFileChange} // Use file change handler
@@ -223,7 +223,7 @@ const News = () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 try {
-                  const response = await fetch('http://localhost:4000/api/admin/upload', {
+                  const response = await fetch('http://furniture-e-commerce-wt2i.onrender.com/api/admin/upload', {
                     method: 'POST',
                     body: formData,
                   });

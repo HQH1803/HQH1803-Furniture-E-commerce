@@ -8,7 +8,7 @@ const SanPhamMoi = () => {
   const [favorites, setFavorites] = useState(new Set());
   
   useEffect(() => {
-    axios.get("http://localhost:4000/api/san-pham-moi")
+    axios.get("http://furniture-e-commerce-wt2i.onrender.com/api/san-pham-moi")
       .then((res) => {
         const pr = res.data;
         setSanphammoi(pr);
@@ -25,7 +25,7 @@ const SanPhamMoi = () => {
 
             if (favorites.has(productId)) {
                 // Nếu sản phẩm đã yêu thích, gọi API xóa
-                await axios.delete('http://localhost:4000/api/favorites', {
+                await axios.delete('http://furniture-e-commerce-wt2i.onrender.com/api/favorites', {
                     data: {
                         userEmail: customerUser.email,
                         productId: productId,
@@ -34,7 +34,7 @@ const SanPhamMoi = () => {
                 message.success('Đã bỏ yêu thích');
             } else {
                 // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-                const response = await axios.post('http://localhost:4000/api/favorites', {
+                const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/favorites', {
                     user_email: customerUser.email,
                     product_id: productId,
                 });

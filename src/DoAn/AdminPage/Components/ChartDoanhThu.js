@@ -17,7 +17,7 @@ const TongDoanhThu = ({ period }) => {
 
   useEffect(() => {
     // Gửi yêu cầu API để lấy dữ liệu doanh thu theo khoảng thời gian
-    axios.get(`http://localhost:4000/api/doanh-thu?period=${period}`)
+    axios.get(`http://https://furniture-e-commerce-wt2i.onrender.com/api/doanh-thu?period=${period}`)
       .then((res) => {
         const doanhThuData = res.data;
 

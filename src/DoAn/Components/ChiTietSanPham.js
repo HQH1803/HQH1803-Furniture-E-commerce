@@ -38,7 +38,7 @@ const ChiTietSanPham = () => {
         }
 
         // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-        const response = await axios.post('http://localhost:4000/api/favorites', {
+        const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/favorites', {
             user_email: customerUser.email,
             product_id: productId,
         });
@@ -80,7 +80,7 @@ const ChiTietSanPham = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/chitietsanpham/${id}`);
+        const response = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/chitietsanpham/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching data: ", error);

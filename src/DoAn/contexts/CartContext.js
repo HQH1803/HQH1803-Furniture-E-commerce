@@ -17,12 +17,12 @@ export const CartProvider = ({ children }) => {
     const fetchCart = async () => {
       if (userEmail) {
         try {
-          const response = await axios.get(`http://localhost:4000/api/cart?email=${userEmail}`);
+          const response = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/cart?email=${userEmail}`);
           const cartItems = response.data;
 
           // Fetch product details for each item in the cart
           const productDetailsPromises = cartItems.map(async (item) => {
-            const productResponse = await axios.get(`http://localhost:4000/api/san-pham/${item.product_id}`);
+            const productResponse = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/san-pham/${item.product_id}`);
             return {
               ...item,
               ...productResponse.data, // Merge product details with cart item
@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
       if (existingProduct) {
         await increaseQuantity(existingProduct.product_id); // Increase quantity if product already exists
       } else {
-        const response = await axios.post('http://localhost:4000/api/cart', {
+        const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/cart', {
           email: userEmail, // Send user's email
           product_id: product.id,
           quantity: 1
@@ -77,7 +77,7 @@ export const CartProvider = ({ children }) => {
     }
   
     try {
-      await axios.delete(`http://localhost:4000/api/cart/${userEmail}/${productId}`);
+      await axios.delete(`http://furniture-e-commerce-wt2i.onrender.com/api/cart/${userEmail}/${productId}`);
       setCart(cart.filter(item => item.product_id !== productId)); // Update cart after removal
     } catch (error) {
       console.error('Error removing from cart:', error);
@@ -92,7 +92,7 @@ export const CartProvider = ({ children }) => {
         item.product_id === productId ? { ...item, quantity: item.quantity + 1 } : item
       );
       setCart(updatedCart);
-      await axios.put(`http://localhost:4000/api/cart/${userEmail}/${productId}`, {
+      await axios.put(`http://furniture-e-commerce-wt2i.onrender.com/api/cart/${userEmail}/${productId}`, {
         quantity: updatedCart.find(item => item.product_id === productId).quantity
       });
     } catch (error) {
@@ -109,7 +109,7 @@ export const CartProvider = ({ children }) => {
           item.product_id === productId ? { ...item, quantity: item.quantity - 1 } : item
         );
         setCart(updatedCart);
-        await axios.put(`http://localhost:4000/api/cart/${userEmail}/${productId}`, {
+        await axios.put(`http://furniture-e-commerce-wt2i.onrender.com/api/cart/${userEmail}/${productId}`, {
           quantity: updatedCart.find(item => item.product_id === productId).quantity
         });
       } else {
@@ -124,7 +124,7 @@ export const CartProvider = ({ children }) => {
   // Function to clear the cart
   const clearCart = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/cart/${userEmail}`);
+      await axios.delete(`http://furniture-e-commerce-wt2i.onrender.com/api/cart/${userEmail}`);
       setCart([]);
     } catch (error) {
       console.error('Error clearing cart:', error);

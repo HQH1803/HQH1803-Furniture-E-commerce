@@ -12,7 +12,7 @@ function GheVanPhong() {
                 alt="Ghế Văn Phòng"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/ghe-van-phong" showCategories={false} title="Ghế Văn Phòng"/>
+            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/ghe-van-phong" showCategories={false} title="Ghế Văn Phòng"/>
             
         </div>
     </div>

@@ -26,7 +26,7 @@ const DangKy = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:4000/api/register', {
+            const response = await fetch('http://furniture-e-commerce-wt2i.onrender.com/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

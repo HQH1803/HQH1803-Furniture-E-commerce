@@ -18,7 +18,7 @@ const SearchPage = () => {
     setLoading(true);
     setError(null);
 
-    axios.get(`http://localhost:4000/api/search/${tentimkiem}`)
+    axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/search/${tentimkiem}`)
       .then((res) => {
         setRelatedProducts(res.data);
         setLoading(false);

@@ -16,7 +16,7 @@ const QuanLyDoanhThu = () => {
     const fetchRevenueData = async () => {
         setLoading(true);
         try {
-            let url = `http://localhost:4000/api/doanh-thu?period=${period}`;
+            let url = `http://furniture-e-commerce-wt2i.onrender.com/api/doanh-thu?period=${period}`;
             if (startDate && endDate) {
                 url += `&startDate=${startDate.format('YYYY-MM-DD')}&endDate=${endDate.format('YYYY-MM-DD')}`;
             }

@@ -11,7 +11,7 @@ function Ghe() {
                 alt="Ghế Sofa"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/ghe-sofa" showCategories={false} title="Ghế Sofa"/>
+            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/ghe-sofa" showCategories={false} title="Ghế Sofa"/>
             
         </div>
     </div>

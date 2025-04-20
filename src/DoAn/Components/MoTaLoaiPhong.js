@@ -19,7 +19,7 @@ const MoTaLoaiPhong = ({ id }) => {
     useEffect(() => {
         const fetchMotaLoaiPhong = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/loai-phong/${id}`);
+                const response = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/loai-phong/${id}`);
                 console.log(response.data)
                 if (response.data && response.data.mo_ta_phong) {
                     setMotaLoaiPhong(response.data.mo_ta_phong);
