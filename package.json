@@ -2,7 +2,7 @@
   "name": "doan",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://hqh1803-furniture-e-commerce-1.onrender.com",
+  "homepage": "https://furniture-e-commerce-wt2i.onrender.com",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@kommunicate/kommunicate-chatbot-plugin": "^0.0.7",
