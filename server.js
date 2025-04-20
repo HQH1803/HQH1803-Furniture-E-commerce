@@ -2972,11 +2972,15 @@ app.get('/api/admin/promotions',async (req, res)=> {
     }
   });
 // Middleware cho static files - đặt SAU các API routes
-app.use(express.static(path.join(__dirname, 'client/build')));
+const buildPath = process.env.NODE_ENV === 'production' 
+  ? path.join(__dirname, 'build')  // Thư mục build nằm cùng cấp với server.js
+  : path.join(__dirname, 'build');
+
+app.use(express.static(buildPath));
 
 // Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(buildPath, 'index.html'));
 });
   
 
