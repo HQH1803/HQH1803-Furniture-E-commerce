@@ -26,16 +26,6 @@ const connection = mysql.createPool({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
   });
-// Cấu hình để serve frontend React từ build
-// Middleware để phục vụ các file từ thư mục build của React
-app.use(express.static(path.join(__dirname, "build")));
-
-// Cấu hình backend API routes ở đây
-
-// Phục vụ index.html cho tất cả các route không phải là API
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
