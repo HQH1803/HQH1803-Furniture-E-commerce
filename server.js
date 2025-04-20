@@ -17,7 +17,7 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 const connection = mysql.createPool({
     host: process.env.DB_HOST,
@@ -2972,12 +2972,13 @@ app.get('/api/admin/promotions',async (req, res)=> {
     }
   });
 // Middleware cho static files - đặt SAU các API routes
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
+  
 
 // Khởi động server
 app.listen(port, '0.0.0.0', (err) => {
