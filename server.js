@@ -27,15 +27,7 @@ const connection = mysql.createPool({
     port: process.env.DB_PORT,
   });
 
-// Phục vụ các static files từ thư mục build
-app.use(express.static(path.join(__dirname, 'build')));
 
-// Xử lý tất cả các routes khác bằng cách trả về index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-console.log('Current directory:', __dirname);
-console.log('Looking for file at:', path.join(__dirname, 'build', 'index.html'));
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -2979,8 +2971,15 @@ app.get('/api/admin/promotions',async (req, res)=> {
         res.status(500).json({ error: error.message });
     }
   });
+// Middleware cho static files - đặt SAU các API routes
+app.use(express.static(path.join(__dirname, 'build')));
 
-// Khởi động server và lắng nghe kết nối trên cổng 4000
+// Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// Khởi động server
 app.listen(port, '0.0.0.0', (err) => {
     if (err) {
         console.error("Error starting server:", err);
