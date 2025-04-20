@@ -28,9 +28,7 @@ export const UserProvider = ({ children }) => {
             console.log(localStorage.getItem('customer_user'))
         }
     
-        if (!storedAdminUser && !storedCustomerUser) {
-            navigate('/dangnhap'); // Nếu không có cả admin_user và customer_user trong localStorage, điều hướng về trang đăng nhập
-        }
+    
     }, [navigate]);
     
     // Hàm đăng nhập người dùng
