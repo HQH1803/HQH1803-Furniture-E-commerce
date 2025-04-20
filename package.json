@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://hqh1803-furniture-e-commerce-1.onrender.com",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@kommunicate/kommunicate-chatbot-plugin": "^0.0.7",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
@@ -78,8 +79,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
