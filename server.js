@@ -17,7 +17,7 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 const connection = mysql.createPool({
     host: process.env.DB_HOST,
@@ -26,6 +26,12 @@ const connection = mysql.createPool({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
   });
+// Serve static files from React
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
