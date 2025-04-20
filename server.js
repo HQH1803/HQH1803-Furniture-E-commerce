@@ -2402,9 +2402,13 @@ app.get('/api/products', async (req, res) => {
         `);
         
         // Thay đổi URL hình ảnh từ localhost sang domain thực tế
+        const baseUrl = process.env.NODE_ENV === 'production' 
+            ? 'https://furniture-e-commerce-wt2i.onrender.com'
+            : 'http://localhost:4000';
+            
         const products = rows.map(product => ({
             ...product,
-            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
+            hinh_anh: product.hinh_anh.replace(/http:\/\/localhost:4000|https:\/\/furniture-e-commerce-wt2i\.onrender\.com/, baseUrl)
         }));
         
         console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);

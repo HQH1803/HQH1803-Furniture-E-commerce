@@ -3,107 +3,99 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
-import LatestNews from './LatestNews';
-import api from '../../config/api';
+import LatestNews from './LatestNews'; // Import LatestNews
 import '../css/news.css';
 import _ from 'lodash';
 import { format } from 'date-fns';
 import ServiceList from './ServiceList';
 
 const News = () => {
-    const [tintuc, setTintuc] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const newsPerPage = 4;
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [tintuc, setTintuc] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const newsPerPage = 4;
 
-    useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                const res = await api.get("/api/tin-tuc");
-                console.log("Dữ liệu tin tức:", res.data);
-                setTintuc(res.data);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching data: ", error);
-                setError("Could not load news.");
-                setLoading(false);
-            }
-        };
-
-        fetchNews();
-    }, []);
-
-    // Tính toán các chỉ số cho phân trang
-    const indexOfLastNew = currentPage * newsPerPage;
-    const indexOfFirstNew = indexOfLastNew - newsPerPage;
-    const currentNews = tintuc.slice(indexOfFirstNew, indexOfLastNew);
-
-    // Hàm để tăng lượt xem
-    const handleViewCount = async (id) => {
-        try {
-            await api.post(`/api/tin-tuc-chi-tiet/${id}/increase-view`);
-        } catch (error) {
-            console.error("Error increasing view count: ", error);
-        }
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/api/tin-tuc");
+        console.log("Dữ liệu tin tức:", res.data); // Kiểm tra dữ liệu
+        setTintuc(res.data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    fetchNews();
+  }, []);
 
-    return (
-        <div className='container'>
-            <div className='news-container'>
-                <div className="sidebar">
-                    <LatestNews />
-                </div>
-                <div className="main-content">          
-                    <div className="news-content">
-                        <div className="news-articles">
-                            {currentNews.length > 0 ? currentNews.map((newsItem) => (
-                                <article key={newsItem.id} className="news-article">
-                                    <div className="news-post row">
-                                        <div className="news-thumbnail col-md-4 col-xs-12 col-sm-4">
-                                            <Link 
-                                                className="news-image fade-box" 
-                                                title={newsItem.tieu_de} 
-                                                to={`/chi-tiet-tin-tuc/${newsItem.id}`} 
-                                                onClick={() => handleViewCount(newsItem.id)}
-                                            >
-                                                <img className="lazyloaded" src={newsItem.hinh_anh} alt={newsItem.tieu_de} />
-                                            </Link>
-                                        </div>
-                                        <div className="news-info col-md-8 col-xs-12 col-sm-8">
-                                            <h3 className="news-title">
-                                                <Link 
-                                                    to={`/chi-tiet-tin-tuc/${newsItem.id}`} 
-                                                    title={newsItem.tieu_de} 
-                                                    onClick={() => handleViewCount(newsItem.id)}
-                                                >
-                                                    {newsItem.tieu_de}
-                                                </Link>
-                                            </h3>
-                                            <div className="news-meta">
-                                                <span className="news-date">{format(new Date(newsItem.ngay_dang), 'dd/MM/yyyy')}</span>
-                                                <span className="news-views">Lượt xem: {newsItem.luot_xem}</span>
-                                            </div>
-                                            <p className="news-excerpt">{parse(_.truncate(newsItem.noi_dung, { length: 500, omission: '...' }).replace(/\r\n|\n/g, '<br />'))}</p>
-                                        </div>
-                                    </div>
-                                </article>
-                            )) : <p>Không có tin tức nào để hiển thị.</p>}
-                        </div>
-                    </div>
-                    <Pagination
-                        productsPerPage={newsPerPage}
-                        totalProducts={tintuc.length}
-                        paginate={setCurrentPage}
-                        currentPage={currentPage}
-                    />
-                </div>
-            </div>
+  // Tính toán các chỉ số cho phân trang
+  const indexOfLastNew = currentPage * newsPerPage;
+  const indexOfFirstNew = indexOfLastNew - newsPerPage;
+  const currentNews = tintuc.slice(indexOfFirstNew, indexOfLastNew);
+
+  // Hàm để tăng lượt xem
+  const handleViewCount = async (id) => {
+    try {
+      await axios.post(`http://localhost:4000/api/tin-tuc-chi-tiet/${id}/increase-view`);
+    } catch (error) {
+      console.error("Error increasing view count: ", error);
+    }
+  };
+
+  return (
+    <div className='container'>
+      <div className='news-container'>
+        <div className="sidebar">
+          <LatestNews /> {/* Sidebar hiển thị tin tức mới nhất */}
         </div>
-    );
+        <div className="main-content">          
+          <div className="news-content">
+            <div className="news-articles">
+              {currentNews.length > 0 ? currentNews.map((newsItem) => (
+                <article key={newsItem.id} className="news-article">
+                  <div className="news-post row">
+                    <div className="news-thumbnail col-md-4 col-xs-12 col-sm-4">
+                      <Link 
+                        className="news-image fade-box" 
+                        title={newsItem.tieu_de} 
+                        to={`/chi-tiet-tin-tuc/${newsItem.id}`} 
+                        onClick={() => handleViewCount(newsItem.id)} // Gọi hàm tăng lượt xem khi nhấp vào liên kết
+                      >
+                        <img className="lazyloaded" src={newsItem.hinh_anh} alt={newsItem.tieu_de} />
+                      </Link>
+                    </div>
+                    <div className="news-info col-md-8 col-xs-12 col-sm-8">
+                      <h3 className="news-title">
+                        <Link 
+                          to={`/chi-tiet-tin-tuc/${newsItem.id}`} 
+                          title={newsItem.tieu_de} 
+                          onClick={() => handleViewCount(newsItem.id)} // Gọi hàm tăng lượt xem
+                        >
+                          {newsItem.tieu_de}
+                        </Link>
+                      </h3>
+                      <div className="news-meta">
+                        <span className="news-date">{format(new Date(newsItem.ngay_dang), 'dd/MM/yyyy')}</span>
+                        <span className="news-views">Lượt xem: {newsItem.luot_xem}</span>
+                      </div>
+                      <p className="news-excerpt">{parse(_.truncate(newsItem.noi_dung, { length: 500, omission: '...' }).replace(/\r\n|\n/g, '<br />'))}</p>
+                    </div>
+                  </div>
+                </article>
+              )) : <p>Không có tin tức nào để hiển thị.</p>}
+            </div>
+          </div>
+          <Pagination
+            productsPerPage={newsPerPage}
+            totalProducts={tintuc.length}
+            paginate={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      </div>
+    </div>
+    
+  );
 };
 
 export default News;
