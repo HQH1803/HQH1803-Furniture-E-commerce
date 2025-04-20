@@ -26,7 +26,12 @@ const connection = mysql.createPool({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
   });
+// Cấu hình để serve frontend React từ build
+app.use(express.static(path.join(__dirname, "build")));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
