@@ -231,7 +231,7 @@ const News = () => {
                     throw new Error('Upload failed');
                   }
                   const result = await response.json();
-                  file.url = `http://localhost:4000${result.url}`; // Get image URL
+                  file.url = `http://furniture-e-commerce-wt2i.onrender.com/${result.url}`; // Get image URL
                   onSuccess(result);
                 } catch (error) {
                   onError(error);

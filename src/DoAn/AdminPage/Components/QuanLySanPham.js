@@ -326,7 +326,7 @@ const handleEdit = async (product) => {
                     throw new Error('Upload failed');
                   }
                   const result = await response.json();
-                  file.url = `http://localhost:4000${result.url}`;
+                  file.url = `http://furniture-e-commerce-wt2i.onrender.com/${result.url}`;
                   onSuccess(result, file);
                   setFileList([file]);
                 } catch (error) {
