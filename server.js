@@ -30,6 +30,8 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 if (!port) {
     console.error('PORT environment variable is required in production');
@@ -73,10 +75,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Middleware để áp dụng CORS cho tất cả các routes
 app.use(cors());
@@ -3058,10 +3056,23 @@ app.get('/api/products', async (req, res) => {
             LEFT JOIN loai_phong lp ON p.loai_phong_id = lp.id
             ORDER BY p.id DESC
         `);
-        console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${rows.length} sản phẩm`);
-        res.json(rows);
+        
+        // Thay đổi URL hình ảnh từ localhost sang domain thực tế
+        const products = rows.map(product => ({
+            ...product,
+            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
+        }));
+        
+        console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);
+        res.json(products);
     } catch (error) {
         console.error(`[${new Date().toISOString()}] Lỗi lấy danh sách sản phẩm:`, error);
         res.status(500).json({ error: error.message });
     }
+});
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
