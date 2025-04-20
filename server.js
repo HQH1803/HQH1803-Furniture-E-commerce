@@ -1579,7 +1579,7 @@ app.get('/api/danh-sach-phong', async (req, res) => {
             FROM loai_phong_san_pham lpsp
             JOIN loai_phong lp ON lpsp.loai_phong_id = lp.id
             JOIN loai_san_pham lsp ON lpsp.loai_san_pham_id = lsp.id
-            GROUP BY lp.tenPhong;
+            GROUP BY lp.id, lp.tenPhong;
           `);
         res.json(rows);
     } catch (err) {
