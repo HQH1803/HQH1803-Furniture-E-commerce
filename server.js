@@ -30,8 +30,6 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 if (!port) {
     console.error('PORT environment variable is required in production');
@@ -75,6 +73,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Middleware để áp dụng CORS cho tất cả các routes
 app.use(cors());
@@ -3011,38 +3013,12 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-// Kiểm tra kết nối database
-const checkDatabaseConnection = async () => {
-    try {
-        const connection = await mysql.createConnection({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-            port: process.env.DB_PORT
-        });
-        console.log(`[${new Date().toISOString()}] Database connected successfully`);
-        await connection.end();
-        return true;
-    } catch (error) {
-        console.error(`[${new Date().toISOString()}] Database connection error:`, error);
-        return false;
-    }
-};
-
 // Khởi động server
-app.listen(port, '0.0.0.0', async (err) => {
+app.listen(port, '0.0.0.0', (err) => {
     if (err) {
         console.error("Error starting server:", err);
     } else {
         console.log(`[${new Date().toISOString()}] Server is running and listening on port ${port}`);
-        
-        // Kiểm tra kết nối database
-        const isConnected = await checkDatabaseConnection();
-        if (!isConnected) {
-            console.error(`[${new Date().toISOString()}] Server started but database connection failed`);
-            return;
-        }
         
         // Chạy các tác vụ định kỳ sau khi server đã khởi động
         console.log(`[${new Date().toISOString()}] Starting scheduled tasks...`);
