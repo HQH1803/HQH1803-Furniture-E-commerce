@@ -17,7 +17,7 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = process.env.PORT || 4000;  // Sử dụng port 4000 làm mặc định
+const port = 4000;  // Bắt buộc sử dụng port 4000
 
 if (!port) {
     console.error('PORT environment variable is required in production');
