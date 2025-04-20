@@ -17,7 +17,7 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const connection = mysql.createPool({
     host: process.env.DB_HOST,
@@ -2976,13 +2976,13 @@ const buildPath = process.env.NODE_ENV === 'production'
   ? path.join(__dirname, 'build')  // Thư mục build nằm cùng cấp với server.js
   : path.join(__dirname, 'build');
 
+// Serve static files
 app.use(express.static(buildPath));
 
 // Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
 app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
 });
-  
 
 // Khởi động server
 app.listen(port, '0.0.0.0', (err) => {
