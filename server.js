@@ -3030,9 +3030,8 @@ app.use(express.static(buildPath));
 
 // Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
 app.get('*', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
 // Khởi động server
 app.listen(port, '0.0.0.0', (err) => {
     if (err) {
