@@ -17,28 +17,21 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = process.env.PORT || 10000;  // Sử dụng PORT từ biến môi trường, mặc định là 4000
+const port = process.env.PORT || 4000;  // Sử dụng port 4000 làm mặc định
+
+if (!port) {
+    console.error('PORT environment variable is required in production');
+    process.exit(1);
+}
 
 const connection = mysql.createPool({
-    host: process.env.DB_HOST || process.env.RAILWAY_PRIVATE_DOMAIN,
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
-    database: process.env.DB_NAME || 'railway',
-    port: process.env.DB_PORT || 3307,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+  });
 
-// Test database connection
-connection.getConnection((err, connection) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
-    }
-    console.log('Successfully connected to database');
-    connection.release();
-});
 
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
