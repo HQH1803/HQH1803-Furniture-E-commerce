@@ -8,7 +8,7 @@ const SanPhamBanChay = ({ limit }) => {
 
   useEffect(() => {
     // Gửi yêu cầu API để lấy sản phẩm bán chạy nhất
-    axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/san-pham-ban-chay?limit=${limit}`)
+    axios.get(`http://localhost:4000/api/san-pham-ban-chay?limit=${limit}`)
       .then(res => {
         setTopProducts(res.data);
       })

@@ -29,7 +29,7 @@ const OrderList = () => {
                 return <p>Loading...</p>;
             } 
             try {
-                const response = await fetch(`http://furniture-e-commerce-wt2i.onrender.com/api/don-hang-user?email=${email}`);
+                const response = await fetch(`http://localhost:4000/api/don-hang-user?email=${email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch orders');
                 }
@@ -48,7 +48,7 @@ const OrderList = () => {
     // Fetch details of a specific order
     const fetchOrderDetails = async (orderId) => {
         try {
-            const response = await fetch(`http://furniture-e-commerce-wt2i.onrender.com/api/don-hang/${orderId}/details`);
+            const response = await fetch(`http://localhost:4000/api/don-hang/${orderId}/details`);
             if (!response.ok) {
                 throw new Error('Failed to fetch order details');
             }
@@ -83,7 +83,7 @@ const OrderList = () => {
         }
     
         try {
-            const response = await fetch(`http://furniture-e-commerce-wt2i.onrender.com/api/don-hang/${order.order_id}/cancel`, {
+            const response = await fetch(`http://localhost:4000/api/don-hang/${order.order_id}/cancel`, {
                 method: 'POST',
             });
             const result = await response.json();

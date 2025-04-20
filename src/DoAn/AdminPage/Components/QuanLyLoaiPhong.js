@@ -17,7 +17,7 @@ const QuanLyLoaiPhong = () => {
 
   const fetchRoomTypes = async () => {
     try {
-      const response = await axios.get("http://furniture-e-commerce-wt2i.onrender.com/api/loai-phong");
+      const response = await axios.get("http://localhost:4000/api/loai-phong");
       setRoomTypes(response.data);
     } catch (error) {
       message.error("Lỗi khi lấy danh sách loại phòng");
@@ -40,7 +40,7 @@ const QuanLyLoaiPhong = () => {
 
   const handleDelete = async (roomTypeId) => {
     try {
-      await axios.delete(`http://furniture-e-commerce-wt2i.onrender.com/api/loai-phong/${roomTypeId}`);
+      await axios.delete(`http://localhost:4000/api/loai-phong/${roomTypeId}`);
       setRoomTypes(roomTypes.filter((roomType) => roomType.id !== roomTypeId));
       message.success("Xóa loại phòng thành công");
     } catch (error) {
@@ -61,12 +61,12 @@ const QuanLyLoaiPhong = () => {
     try {
       if (currentRoomType) {
         // Edit mode
-        await axios.put(`http://furniture-e-commerce-wt2i.onrender.com/api/loai-phong/${currentRoomType.id}`, values);
+        await axios.put(`http://localhost:4000/api/loai-phong/${currentRoomType.id}`, values);
         setRoomTypes(roomTypes.map((roomType) => (roomType.id === currentRoomType.id ? { ...values, id: currentRoomType.id } : roomType)));
         message.success("Cập nhật loại phòng thành công");
       } else {
         // Add mode
-        const response = await axios.post("http://furniture-e-commerce-wt2i.onrender.com/api/loai-phong", values);
+        const response = await axios.post("http://localhost:4000/api/loai-phong", values);
         setRoomTypes([...roomTypes, response.data]);
         fetchRoomTypes();  // Lấy lại danh sách phòng sau khi thêm
         message.success("Thêm loại phòng thành công");

@@ -11,7 +11,7 @@ function TuTivi() {
                 alt="Tủ Kệ Tivi Hiện Đại"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/tu-tivi" showCategories={false} title="Tủ Kệ Tivi Hiện Đại"/>
+            <ProductList apiUrl="http://localhost:4000/api/tu-tivi" showCategories={false} title="Tủ Kệ Tivi Hiện Đại"/>
             
         </div>
     </div>

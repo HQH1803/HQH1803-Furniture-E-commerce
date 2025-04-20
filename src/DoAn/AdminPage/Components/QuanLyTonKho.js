@@ -14,7 +14,7 @@ const QuanLyTonKho = () => {
   useEffect(() => {
     const fetchLowStockProducts = async () => {
       try {
-        const response = await axios.get('http://furniture-e-commerce-wt2i.onrender.com/api/canh-bao-ton-kho', {
+        const response = await axios.get('http://localhost:4000/api/canh-bao-ton-kho', {
           params: { range: selectedRange }, // Gửi range qua API
         });
         setLowStockProducts(response.data);

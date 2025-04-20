@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
     const signIn = async (email, password) => {
         try {
-            const response = await fetch('http://furniture-e-commerce-wt2i.onrender.com/api/login', {
+            const response = await fetch('http://localhost:4000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ const Promotions = () => {
 
   const fetchPromotions = async () => {
     try {
-      const response = await axios.get('http://furniture-e-commerce-wt2i.onrender.com/api/admin/promotions');
+      const response = await axios.get('http://localhost:4000/api/admin/promotions');
       setPromotions(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách khuyến mãi');
@@ -61,7 +61,7 @@ const Promotions = () => {
 
   const handleDelete = async (promotionId) => {
     try {
-      await axios.delete(`http://furniture-e-commerce-wt2i.onrender.com/api/admin/promotions/${promotionId}`);
+      await axios.delete(`http://localhost:4000/api/admin/promotions/${promotionId}`);
       setPromotions(promotions.filter(promotionItem => promotionItem.id !== promotionId));
       message.success('Xóa khuyến mãi thành công');
     } catch (error) {
@@ -91,13 +91,13 @@ const Promotions = () => {
       }
 
       if (isEditing) {
-        await axios.put(`http://furniture-e-commerce-wt2i.onrender.com/api/admin/promotions/${currentPromotion.id}`, values);
+        await axios.put(`http://localhost:4000/api/admin/promotions/${currentPromotion.id}`, values);
         setPromotions(promotions.map(promotionItem => 
           promotionItem.id === currentPromotion.id ? { ...values, id: currentPromotion.id } : promotionItem
         ));
         message.success('Cập nhật khuyến mãi thành công');
       } else {
-        const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/admin/promotions', values);
+        const response = await axios.post('http://localhost:4000/api/admin/promotions', values);
         setPromotions([...promotions, response.data]);
         message.success('Thêm khuyến mãi thành công');
         fetchPromotions();

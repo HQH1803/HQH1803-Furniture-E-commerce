@@ -54,7 +54,7 @@ const ReviewForm = ({ productId }) => {
 
         // Send review data to the server
         try {
-            await axios.post(`http://furniture-e-commerce-wt2i.onrender.com/api/san-pham/${productId}/danh-gia`, reviewData);
+            await axios.post(`http://localhost:4000/api/san-pham/${productId}/danh-gia`, reviewData);
             message.success("Cảm ơn bạn đã đánh giá");
             resetReviewForm(); // Reset the form
             fetchReviews(); // Lấy lại danh sách đánh giá mới sau khi gửi
@@ -66,7 +66,7 @@ const ReviewForm = ({ productId }) => {
 
     const fetchReviews = async (page = 1, sortOrder = 'newest') => {
         try {
-            const response = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/san-pham/${productId}/danh-gia`, {
+            const response = await axios.get(`http://localhost:4000/api/san-pham/${productId}/danh-gia`, {
                 params: { page, limit: reviewsPerPage, sortOrder }  // Pass sortOrder as a query parameter
             });
             console.log('API Response:', response.data);

@@ -12,7 +12,7 @@ function BanLamViec() {
                 alt="Bàn Làm Việc"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/ban-lam-viec" showCategories={false} title="Bàn làm việc"/>
+            <ProductList apiUrl="http://localhost:4000/api/ban-lam-viec" showCategories={false} title="Bàn làm việc"/>
             
         </div>
     </div>

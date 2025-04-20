@@ -32,7 +32,7 @@ const Cart = () => {
     // Function to check stock availability for a product
     const checkStock = async (productId, quantity) => {
         try {
-            const response = await axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/products/stock/${productId}`);
+            const response = await axios.get(`http://localhost:4000/api/products/stock/${productId}`);
             const { inStock, message, stockQuantity } = response.data;
 
             if (!inStock) {

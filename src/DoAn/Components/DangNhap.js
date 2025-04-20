@@ -41,7 +41,7 @@ const handleLoginSubmit = async (event) => {
     const handleGoogleLogin = async (credentialResponse) => {
         const { credential } = credentialResponse;
         try {
-            const response = await fetch("http://furniture-e-commerce-wt2i.onrender.com/api/google-login", {
+            const response = await fetch("http://localhost:4000/api/google-login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const handleLoginSubmit = async (event) => {
         const { accessToken, userID, email, name } = response.data;
     
         try {
-            const res = await fetch("http://furniture-e-commerce-wt2i.onrender.com/api/facebook-login", {
+            const res = await fetch("http://localhost:4000/api/facebook-login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

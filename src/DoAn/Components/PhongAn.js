@@ -12,7 +12,7 @@ function PhongAn() {
                 alt="Nội Thất Phòng Ăn - Nội Thất Nhà Bếp Hiện Đại"/>
         </div>
         <div className='container'>            
-            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/phong-an" showCategories={true} title="Sản phẩm Dành cho phòng ăn"/>
+            <ProductList apiUrl="http://localhost:4000/api/phong-an" showCategories={true} title="Sản phẩm Dành cho phòng ăn"/>
                   
             <MoTaLoaiPhong id={4}/>  
         </div>      

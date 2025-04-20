@@ -24,7 +24,7 @@ function ImageUpload({ setImageUrl }) {
         formData.append('image', image);
 
         try {
-            const response = await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/upload', formData, {
+            const response = await axios.post('http://localhost:4000/api/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

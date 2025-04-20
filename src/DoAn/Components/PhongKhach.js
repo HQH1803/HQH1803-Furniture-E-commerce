@@ -12,7 +12,7 @@ function PhongKhach() {
                 alt="Nội Thất Phòng Khách"/>
         </div>
         <div className='container'>
-            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/phong-khach" showCategories={true} title="Sản phẩm Dành cho phòng khách"/>
+            <ProductList apiUrl="http://localhost:4000/api/phong-khach" showCategories={true} title="Sản phẩm Dành cho phòng khách"/>
             
             <MoTaLoaiPhong id={1}/>
         </div>

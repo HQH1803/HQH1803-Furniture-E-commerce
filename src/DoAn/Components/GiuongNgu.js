@@ -11,7 +11,7 @@ function GiuongNgu() {
                 alt="Giường Ngủ"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/giuong-ngu" showCategories={false} title="Giường Ngủ"/>
+            <ProductList apiUrl="http://localhost:4000/api/giuong-ngu" showCategories={false} title="Giường Ngủ"/>
             
         </div>
     </div>

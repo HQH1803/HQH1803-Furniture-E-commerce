@@ -36,7 +36,7 @@ export const UserProvider = ({ children }) => {
         setError(''); // Xóa thông báo lỗi cũ
         try {
             console.log('Gửi yêu cầu đăng nhập với email: ', email, ' và password: ', password); // Log dữ liệu
-            const response = await fetch('http://furniture-e-commerce-wt2i.onrender.com/api/login', {
+            const response = await fetch('http://localhost:4000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const UserProvider = ({ children }) => {
     // Hàm cập nhật thông tin người dùng
     const updateUser = async ({ email, ho_ten, sdt }, role) => {
         try {
-            const response = await fetch('http://furniture-e-commerce-wt2i.onrender.com/api/update-user', {
+            const response = await fetch('http://localhost:4000/api/update-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ export const UserProvider = ({ children }) => {
     // Hàm cập nhật mật khẩu người dùng
     const updatePassword = async ({ email, currentPassword, newPassword }, role) => {
         try {
-            const response = await fetch('http://furniture-e-commerce-wt2i.onrender.com/api/update-password', {
+            const response = await fetch('http://localhost:4000/api/update-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

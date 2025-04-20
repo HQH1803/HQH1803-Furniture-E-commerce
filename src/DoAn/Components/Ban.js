@@ -11,7 +11,7 @@ function Ban() {
                 alt="Bàn Sofa - Bàn Cafe - Bàn Trà"/>
         </div> 
         <div className='container'>   
-          <ProductList apiUrl="http://furniture-e-commerce-wt2i.onrender.com/api/ban-cafe-sofa" showCategories={false} title="Bàn Sofa - Bàn Cafe - Bàn Trà"/>
+          <ProductList apiUrl="http://localhost:4000/api/ban-cafe-sofa" showCategories={false} title="Bàn Sofa - Bàn Cafe - Bàn Trà"/>
            
         </div>
     </div>

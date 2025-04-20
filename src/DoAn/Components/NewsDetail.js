@@ -14,7 +14,7 @@ const NewsDetail = () => {
     const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/chi-tiet-tin-tuc/${id}`;
     
     useEffect(() => {
-        axios.get(`http://furniture-e-commerce-wt2i.onrender.com/api/tin-tuc-chi-tiet/${id}`)
+        axios.get(`http://localhost:4000/api/tin-tuc-chi-tiet/${id}`)
             .then((res) => {
                 setNewsItem(res.data);
             })

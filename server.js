@@ -17,16 +17,52 @@ const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.a
 
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = 4000;  // Bắt buộc sử dụng port 4000
 
+// Cấu hình CORS
+app.use(cors({
+    origin: '*',  // Cho phép tất cả các origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    credentials: true
+}));
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+if (!port) {
+    console.error('PORT environment variable is required in production');
+    process.exit(1);
+}
+
+// Tạo kết nối pool
 const connection = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
-  });
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
 
+// Kiểm tra kết nối database
+connection.getConnection((err, connection) => {
+    if (err) {
+        console.error(`[${new Date().toISOString()}] Database connection error:`, err);
+        console.error('Database config:', {
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            database: process.env.DB_NAME,
+            port: process.env.DB_PORT
+        });
+        return;
+    }
+    console.log(`[${new Date().toISOString()}] Database connected successfully`);
+    connection.release();
+});
 
 // Cấu hình multer để lưu trữ tệp tin
 const storage = multer.diskStorage({
@@ -44,10 +80,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Middleware để áp dụng CORS cho tất cả các routes
 app.use(cors());
@@ -883,7 +915,7 @@ app.get("/api/tin-tuc-moi", async (req, res) => {
 app.get("/api/search/:tentimkiem", async (req, res) => {
     const { tentimkiem } = req.params;
 
-    res.setHeader("Access-Control-Allow-Origin", "http://furniture-e-commerce-wt2i.onrender.com/");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
@@ -2357,7 +2389,31 @@ cron.schedule('*/5 * * * * *', async () => {
         console.error('Lỗi khi cập nhật trạng thái đơn hàng:', error);
     }
 });
-
+// API lấy danh sách sản phẩm
+app.get('/api/products', async (req, res) => {
+    try {
+        console.log(`[${new Date().toISOString()}] Đang lấy danh sách sản phẩm...`);
+        const [rows] = await connection.execute(`
+            SELECT p.*, lsp.tenLoaiSP, lp.tenPhong
+            FROM products p
+            LEFT JOIN loai_san_pham lsp ON p.loai_san_pham_id = lsp.id
+            LEFT JOIN loai_phong lp ON p.loai_phong_id = lp.id
+            ORDER BY p.id DESC
+        `);
+        
+        // Thay đổi URL hình ảnh từ localhost sang domain thực tế
+        const products = rows.map(product => ({
+            ...product,
+            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
+        }));
+        
+        console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);
+        res.json(products);
+    } catch (error) {
+        console.error(`[${new Date().toISOString()}] Lỗi lấy danh sách sản phẩm:`, error);
+        res.status(500).json({ error: error.message });
+    }
+});
 // Tạo API để lấy số lượng tồn kho của sản phẩm
 app.get('/api/products/stock/:productId', async (req, res) => {
     const productId = req.params.productId;  // Lấy ID sản phẩm từ request params
@@ -2671,7 +2727,7 @@ app.post("/api/tinh-doanh-thu", async (req, res) => {
 
 cron.schedule('59 23 * * *', async () => {
     try {
-      await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
+      await axios.post('http://https://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
       console.log('Đã cập nhật doanh thu');
     } catch (error) {
       console.error('Lỗi khi cập nhật doanh thu:', error);
@@ -2981,14 +3037,58 @@ app.use(express.static(buildPath));
 
 // Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
 app.get('*', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
 // Khởi động server
 app.listen(port, '0.0.0.0', (err) => {
     if (err) {
         console.error("Error starting server:", err);
     } else {
-        console.log(`Server is running and listening on port ${port}`);
+        console.log(`[${new Date().toISOString()}] Server is running and listening on port ${port}`);
+        
+        // Chạy các tác vụ định kỳ sau khi server đã khởi động
+        console.log(`[${new Date().toISOString()}] Starting scheduled tasks...`);
+        
+        // Cập nhật trạng thái đơn hàng - mỗi 30 phút
+        cron.schedule('*/30 * * * *', async () => {
+            try {
+                console.log(`[${new Date().toISOString()}] Đang cập nhật trạng thái đơn hàng...`);
+                await updateAllOrderStatuses();
+                console.log(`[${new Date().toISOString()}] Cập nhật trạng thái đơn hàng thành công`);
+            } catch (error) {
+                console.error(`[${new Date().toISOString()}] Lỗi cập nhật trạng thái đơn hàng:`, error);
+            }
+        });
+
+        // Áp dụng mã khuyến mãi - mỗi 6 giờ
+        cron.schedule('0 */6 * * *', async () => {
+            try {
+                console.log(`[${new Date().toISOString()}] Đang áp dụng mã khuyến mãi: TATCASANPHAM`);
+                await applyPromotionForAllProducts('TATCASANPHAM');
+                console.log(`[${new Date().toISOString()}] Áp dụng mã khuyến mãi thành công`);
+            } catch (error) {
+                console.error(`[${new Date().toISOString()}] Lỗi áp dụng mã khuyến mãi:`, error);
+            }
+        });
     }
 });
+
+// API lấy tin tức mới nhất
+app.get('/api/tin-tuc-moi-nhat', async (req, res) => {
+    try {
+        console.log(`[${new Date().toISOString()}] Đang lấy tin tức mới nhất...`);
+        const [rows] = await connection.execute(`
+            SELECT * FROM tin_tuc
+            ORDER BY ngay_dang DESC
+            LIMIT 5
+        `);
+        console.log(`[${new Date().toISOString()}] Lấy tin tức mới nhất thành công: ${rows.length} tin tức`);
+        res.json(rows);
+    } catch (error) {
+        console.error(`[${new Date().toISOString()}] Lỗi lấy tin tức mới nhất:`, error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+

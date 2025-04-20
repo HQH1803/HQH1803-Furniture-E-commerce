@@ -14,7 +14,7 @@ const Favorites = () => {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
-                const response = await fetch(`http://furniture-e-commerce-wt2i.onrender.com/api/favorites?user_email=${customerUser?.email}`);
+                const response = await fetch(`http://localhost:4000/api/favorites?user_email=${customerUser?.email}`);
 
                 if (!response.ok) {
                     throw new Error('Failed to fetch favorites');
@@ -34,7 +34,7 @@ const Favorites = () => {
 
     const handleRemoveFavorite = async (favoriteId) => {
         try {
-            const response = await fetch(`http://furniture-e-commerce-wt2i.onrender.com/api/favorites/${favoriteId}`, {
+            const response = await fetch(`http://localhost:4000/api/favorites/${favoriteId}`, {
                 method: 'DELETE',
             });
 
