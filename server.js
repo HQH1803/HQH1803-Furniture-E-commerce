@@ -2382,7 +2382,31 @@ cron.schedule('*/5 * * * * *', async () => {
         console.error('Lỗi khi cập nhật trạng thái đơn hàng:', error);
     }
 });
-
+// API lấy danh sách sản phẩm
+app.get('/api/products', async (req, res) => {
+    try {
+        console.log(`[${new Date().toISOString()}] Đang lấy danh sách sản phẩm...`);
+        const [rows] = await connection.execute(`
+            SELECT p.*, lsp.tenLoaiSP, lp.tenPhong
+            FROM products p
+            LEFT JOIN loai_san_pham lsp ON p.loai_san_pham_id = lsp.id
+            LEFT JOIN loai_phong lp ON p.loai_phong_id = lp.id
+            ORDER BY p.id DESC
+        `);
+        
+        // Thay đổi URL hình ảnh từ localhost sang domain thực tế
+        const products = rows.map(product => ({
+            ...product,
+            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
+        }));
+        
+        console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);
+        res.json(products);
+    } catch (error) {
+        console.error(`[${new Date().toISOString()}] Lỗi lấy danh sách sản phẩm:`, error);
+        res.status(500).json({ error: error.message });
+    }
+});
 // Tạo API để lấy số lượng tồn kho của sản phẩm
 app.get('/api/products/stock/:productId', async (req, res) => {
     const productId = req.params.productId;  // Lấy ID sản phẩm từ request params
@@ -3043,34 +3067,5 @@ app.listen(port, '0.0.0.0', (err) => {
     }
 });
 
-// API lấy danh sách sản phẩm
-app.get('/api/products', async (req, res) => {
-    try {
-        console.log(`[${new Date().toISOString()}] Đang lấy danh sách sản phẩm...`);
-        const [rows] = await connection.execute(`
-            SELECT p.*, lsp.tenLoaiSP, lp.tenPhong
-            FROM products p
-            LEFT JOIN loai_san_pham lsp ON p.loai_san_pham_id = lsp.id
-            LEFT JOIN loai_phong lp ON p.loai_phong_id = lp.id
-            ORDER BY p.id DESC
-        `);
-        
-        // Thay đổi URL hình ảnh từ localhost sang domain thực tế
-        const products = rows.map(product => ({
-            ...product,
-            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
-        }));
-        
-        console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);
-        res.json(products);
-    } catch (error) {
-        console.error(`[${new Date().toISOString()}] Lỗi lấy danh sách sản phẩm:`, error);
-        res.status(500).json({ error: error.message });
-    }
-});
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+
