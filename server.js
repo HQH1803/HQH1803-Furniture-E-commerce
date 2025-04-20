@@ -2994,6 +2994,21 @@ app.listen(port, '0.0.0.0', (err) => {
     if (err) {
         console.error("Error starting server:", err);
     } else {
-        console.log(`Server is running and listening on port ${port}`);
+        console.log(`[${new Date().toISOString()}] Server is running and listening on port ${port}`);
+        
+        // Chạy các tác vụ định kỳ sau khi server đã khởi động
+        console.log(`[${new Date().toISOString()}] Starting scheduled tasks...`);
+        
+        // Cập nhật trạng thái đơn hàng
+        cron.schedule('*/5 * * * *', async () => {
+            console.log(`[${new Date().toISOString()}] Đang cập nhật trạng thái đơn hàng...`);
+            await updateAllOrderStatuses();
+        });
+
+        // Áp dụng mã khuyến mãi
+        cron.schedule('0 */1 * * *', async () => {
+            console.log(`[${new Date().toISOString()}] Đang áp dụng mã khuyến mãi: TATCASANPHAM`);
+            await applyPromotionForAllProducts('TATCASANPHAM');
+        });
     }
 });
