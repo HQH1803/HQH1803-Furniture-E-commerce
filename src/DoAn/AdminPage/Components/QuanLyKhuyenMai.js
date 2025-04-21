@@ -26,7 +26,7 @@ const Promotions = () => {
 
   const fetchPromotions = async () => {
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/admin/promotions');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/promotions`);
       setPromotions(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách khuyến mãi');
@@ -97,7 +97,7 @@ const Promotions = () => {
         ));
         message.success('Cập nhật khuyến mãi thành công');
       } else {
-        const response = await axios.post('${process.env.REACT_APP_API_BASE_URL}/admin/promotions', values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/promotions`, values);
         setPromotions([...promotions, response.data]);
         message.success('Thêm khuyến mãi thành công');
         fetchPromotions();

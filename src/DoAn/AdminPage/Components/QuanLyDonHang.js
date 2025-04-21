@@ -105,7 +105,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/don-hang');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/don-hang`);
       setOrders(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách đơn hàng');

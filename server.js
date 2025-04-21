@@ -2727,7 +2727,7 @@ app.post("/api/tinh-doanh-thu", async (req, res) => {
 
 cron.schedule('59 23 * * *', async () => {
     try {
-      await axios.post('http://https://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/tinh-doanh-thu`);
       console.log('Đã cập nhật doanh thu');
     } catch (error) {
       console.error('Lỗi khi cập nhật doanh thu:', error);

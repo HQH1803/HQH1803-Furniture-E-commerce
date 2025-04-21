@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
       if (existingProduct) {
         await increaseQuantity(existingProduct.product_id); // Increase quantity if product already exists
       } else {
-        const response = await axios.post('${process.env.REACT_APP_API_BASE_URL}/cart', {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/cart`, {
           email: userEmail, // Send user's email
           product_id: product.id,
           quantity: 1

@@ -32,7 +32,7 @@ function Products() {
   }, []);
   // Lấy danh sách loại phòng từ API
   useEffect(() => {
-    axios.get('${process.env.REACT_APP_API_BASE_URL}/loai-phong').then(response => {      
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/loai-phong`).then(response => {      
       setLoaiPhong(response.data);
     });
   }, []);
@@ -45,7 +45,7 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/admin/san-pham');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/san-pham`);
       setProducts(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách sản phẩm');
@@ -54,7 +54,7 @@ function Products() {
 
   const fetchKichThuoc = async () => {
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/kich-thuoc');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/kich-thuoc`);
       setKichThuocList(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách kích thước');
@@ -63,7 +63,7 @@ function Products() {
 
   const fetchMauSac = async () => { 
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/mau-sac');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/mau-sac`);
       setMauSacList(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách màu sắc');
@@ -189,7 +189,7 @@ const handleEdit = async (product) => {
         message.success('Cập nhật sản phẩm thành công');
       } else {
         // Add new product
-        const response = await axios.post('${process.env.REACT_APP_API_BASE_URL}/admin/san-pham', values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/san-pham`, values);
         
         // Update product list locally with the new product
         setProducts(prevProducts => [...prevProducts, response.data]);
@@ -221,7 +221,7 @@ const handleEdit = async (product) => {
   // Lấy danh sách các loại sản phẩm liên quan đến loại phòng đã chọn
   useEffect(() => {
     if (selectedLoaiPhong) {
-      axios.get('${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong').then(response => {
+      axios.get(`${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong`).then(response => {
         // Lọc loại sản phẩm phù hợp với loại phòng đã chọn
         console.log(selectedLoaiPhong)
         const filteredData = response.data.find(
@@ -318,7 +318,7 @@ const handleEdit = async (product) => {
                 const formData = new FormData();
                 formData.append('file', file);
                 try {
-                  const response = await fetch('${process.env.REACT_APP_API_BASE_URL}/admin/upload', {
+                  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/upload`, {
                     method: 'POST',
                     body: formData,
                   });

@@ -27,10 +27,10 @@ const QuanLyDanhMuc = () => {
     setLoading(true);
     try {
       const [loaiPhongRes, loaiSanPhamRes, lienKetRes, phongRes] = await Promise.all([
-        axios.get("http://https://localhost:4000/api/loai-phong"),
-        axios.get("${process.env.REACT_APP_API_BASE_URL}/loai-san-pham"),
-        axios.get("${process.env.REACT_APP_API_BASE_URL}/loai-phong-san-pham"),
-        axios.get("${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong"), // Fetch room types and products
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/loai-phong`),
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/loai-san-pham`),
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/loai-phong-san-pham`),
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong`), // Fetch room types and products
       ]);
       setLoaiPhong(loaiPhongRes.data);
       setLoaiSanPham(loaiSanPhamRes.data);

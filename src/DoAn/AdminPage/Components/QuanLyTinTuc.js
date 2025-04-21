@@ -28,7 +28,7 @@ const News = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc`);
       setNews(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách tin tức');
@@ -92,7 +92,7 @@ const News = () => {
         setNews(news.map(newsItem => newsItem.id === currentNews.id ? { ...values, id: currentNews.id } : newsItem));
         message.success('Cập nhật tin tức thành công');
       } else {
-        const response = await axios.post('${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc', values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc`, values);
         setNews([...news, response.data]);
         message.success('Thêm tin tức thành công');
         fetchNews();
@@ -223,7 +223,7 @@ const News = () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 try {
-                  const response = await fetch('${process.env.REACT_APP_API_BASE_URL}/admin/upload', {
+                  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/upload`, {
                     method: 'POST',
                     body: formData,
                   });

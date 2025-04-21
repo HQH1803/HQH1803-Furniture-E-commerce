@@ -14,7 +14,7 @@ const QuanLyTonKho = () => {
   useEffect(() => {
     const fetchLowStockProducts = async () => {
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/canh-bao-ton-kho', {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/canh-bao-ton-kho`, {
           params: { range: selectedRange }, // Gửi range qua API
         });
         setLowStockProducts(response.data);

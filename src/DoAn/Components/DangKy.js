@@ -26,7 +26,7 @@ const DangKy = () => {
         }
 
         try {
-            const response = await fetch('${process.env.REACT_APP_API_BASE_URL}/register', {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -38,7 +38,7 @@ const ChiTietSanPham = () => {
         }
 
         // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-        const response = await axios.post('${process.env.REACT_APP_API_BASE_URL}/favorites', {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/favorites`, {
             user_email: customerUser.email,
             product_id: productId,
         });
