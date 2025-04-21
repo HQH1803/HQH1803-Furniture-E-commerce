@@ -50,6 +50,7 @@
     "react-social-login": "^3.4.17",
     "react-social-login-buttons": "^4.1.0",
     "react-text-truncate": "^0.19.0",
+    "react-toastify": "^11.0.5",
     "reactjs-social-login": "^2.6.3",
     "remove-accents": "^0.5.0",
     "slick-carousel": "^1.8.1",
@@ -60,7 +61,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && node server.js"
+    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "deploy": "npm run build && npm run server"
   },
   "eslintConfig": {
     "extends": [

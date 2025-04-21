@@ -18,7 +18,7 @@ const QuanLyMauSac = () => {
   const fetchMauSacData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:4000/api/mau-sac");
+      const res = await axios.get("${process.env.REACT_APP_API_BASE_URL}/mau-sac");
       setMauSacData(res.data);
     } catch (error) {
       message.error("Lỗi khi tải dữ liệu");
@@ -46,13 +46,13 @@ const QuanLyMauSac = () => {
     try {
       const values = form.getFieldsValue();
       if (isEditMode) {
-        await axios.put(`http://localhost:4000/api/mau-sac/${editingRecord.id}`, {
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/mau-sac/${editingRecord.id}`, {
           ten_mau: values.tenMau,
           ma_mau: selectedColor,
         });
         message.success("Cập nhật màu sắc thành công");
       } else {
-        await axios.post("http://localhost:4000/api/mau-sac", {
+        await axios.post("${process.env.REACT_APP_API_BASE_URL}/mau-sac", {
           ten_mau: values.tenMau,
           ma_mau: selectedColor,
         });
@@ -75,7 +75,7 @@ const QuanLyMauSac = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/mau-sac/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/mau-sac/${id}`);
       message.success("Xóa màu sắc thành công");
       fetchMauSacData();
     } catch (error) {

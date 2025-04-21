@@ -12,7 +12,7 @@ function GheVanPhong() {
                 alt="Ghế Văn Phòng"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/ghe-van-phong" showCategories={false} title="Ghế Văn Phòng"/>
+            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/ghe-van-phong" showCategories={false} title="Ghế Văn Phòng"/>
             
         </div>
     </div>

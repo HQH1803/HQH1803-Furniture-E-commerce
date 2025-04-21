@@ -12,7 +12,7 @@ function PhongAn() {
                 alt="Nội Thất Phòng Ăn - Nội Thất Nhà Bếp Hiện Đại"/>
         </div>
         <div className='container'>            
-            <ProductList apiUrl="http://localhost:4000/api/phong-an" showCategories={true} title="Sản phẩm Dành cho phòng ăn"/>
+            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/phong-an" showCategories={true} title="Sản phẩm Dành cho phòng ăn"/>
                   
             <MoTaLoaiPhong id={4}/>  
         </div>      

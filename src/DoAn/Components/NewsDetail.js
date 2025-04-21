@@ -14,7 +14,7 @@ const NewsDetail = () => {
     const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/chi-tiet-tin-tuc/${id}`;
     
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/tin-tuc-chi-tiet/${id}`)
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/tin-tuc-chi-tiet/${id}`)
             .then((res) => {
                 setNewsItem(res.data);
             })

@@ -17,7 +17,7 @@ const QuanLyLoaiSP = () => {
 
   const fetchProductTypes = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/loai-san-pham");
+      const response = await axios.get("${process.env.REACT_APP_API_BASE_URL}/loai-san-pham");
       setProductTypes(response.data);
     } catch (error) {
       message.error("Lỗi khi lấy danh sách loại sản phẩm");
@@ -45,14 +45,14 @@ const QuanLyLoaiSP = () => {
     try {
       if (isEditing) {
         // Edit mode
-        await axios.put(`http://localhost:4000/api/loai-san-pham/${currentProductType.id}`, values);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/loai-san-pham/${currentProductType.id}`, values);
         setProductTypes(productTypes.map((productType) => 
           productType.id === currentProductType.id ? { ...values, id: currentProductType.id } : productType
         ));
         message.success("Cập nhật loại sản phẩm thành công");
       } else {
         // Add mode
-        const response = await axios.post("http://localhost:4000/api/loai-san-pham", values);
+        const response = await axios.post("${process.env.REACT_APP_API_BASE_URL}/loai-san-pham", values);
         setProductTypes([...productTypes, response.data]);
         fetchProductTypes();
         message.success("Thêm loại sản phẩm thành công");
@@ -71,7 +71,7 @@ const QuanLyLoaiSP = () => {
   // Function to handle deleting a product category
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/loai-san-pham/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/loai-san-pham/${id}`);
       setProductTypes(productTypes.filter(productType => productType.id !== id));
       message.success("Xóa loại sản phẩm thành công");
     } catch (error) {

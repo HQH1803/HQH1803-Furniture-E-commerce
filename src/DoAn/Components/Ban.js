@@ -11,7 +11,7 @@ function Ban() {
                 alt="Bàn Sofa - Bàn Cafe - Bàn Trà"/>
         </div> 
         <div className='container'>   
-          <ProductList apiUrl="http://localhost:4000/api/ban-cafe-sofa" showCategories={false} title="Bàn Sofa - Bàn Cafe - Bàn Trà"/>
+          <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/ban-cafe-sofa" showCategories={false} title="Bàn Sofa - Bàn Cafe - Bàn Trà"/>
            
         </div>
     </div>

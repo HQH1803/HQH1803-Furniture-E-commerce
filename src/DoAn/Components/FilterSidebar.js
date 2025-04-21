@@ -17,7 +17,7 @@ const FilterSidebar = ({ onFilterChange, showCategories }) => {
   useEffect(() => {
     const fetchColors = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/mau-sac'); 
+        const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/mau-sac'); 
         setColors(response.data);
       } catch (error) {
         console.error('Error fetching colors:', error);
@@ -25,7 +25,7 @@ const FilterSidebar = ({ onFilterChange, showCategories }) => {
     };
     const fetchSizes = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/kich-thuoc'); 
+        const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/kich-thuoc'); 
         setSizes(response.data);
       } catch (error) {
         console.error('Error fetching sizes:', error);
@@ -33,7 +33,7 @@ const FilterSidebar = ({ onFilterChange, showCategories }) => {
     };
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/loai-san-pham'); 
+        const response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/loai-san-pham'); 
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);

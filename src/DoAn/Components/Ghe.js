@@ -11,7 +11,7 @@ function Ghe() {
                 alt="Ghế Sofa"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/ghe-sofa" showCategories={false} title="Ghế Sofa"/>
+            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/ghe-sofa" showCategories={false} title="Ghế Sofa"/>
             
         </div>
     </div>

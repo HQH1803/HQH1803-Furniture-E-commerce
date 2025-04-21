@@ -10,7 +10,7 @@ function Body() {
   useEffect(() => {
     const fetchLatestNews = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/tin-tuc");
+        const response = await axios.get("${process.env.REACT_APP_API_BASE_URL}/tin-tuc");
         const sortedNews = response.data.sort((a, b) => new Date(b.ngay_dang) - new Date(a.ngay_dang));
         setTintuc(sortedNews.slice(0, 4)); // Lấy 4 tin tức mới nhất
       } catch (error) {
@@ -22,7 +22,7 @@ function Body() {
 
   const handleViewCount = async (id) => {
     try {
-      await axios.post(`http://localhost:4000/api/tin-tuc-chi-tiet/${id}/increase-view`);
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tin-tuc-chi-tiet/${id}/increase-view`);
     } catch (error) {
       console.error("Error increasing view count: ", error);
     }

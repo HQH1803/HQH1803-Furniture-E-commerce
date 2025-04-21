@@ -13,7 +13,7 @@ function PhongNgu() {
                 alt="Nội Thất Phòng Ngủ"/>
         </div>
         <div className='container'>
-            <ProductList apiUrl="http://localhost:4000/api/phong-ngu" showCategories={true} title="Sản phẩm Dành cho phòng ngủ"/>
+            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/phong-ngu" showCategories={true} title="Sản phẩm Dành cho phòng ngủ"/>
             
             <MoTaLoaiPhong id={2}/>
         </div>

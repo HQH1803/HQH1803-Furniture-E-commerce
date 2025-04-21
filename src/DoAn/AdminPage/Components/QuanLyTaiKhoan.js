@@ -16,7 +16,7 @@ const QuanLyTaiKhoan = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/accounts");
+      const response = await axios.get("${process.env.REACT_APP_API_BASE_URL}/accounts");
       setAccounts(response.data);
     } catch (error) {
       message.error("Failed to fetch accounts");
@@ -35,7 +35,7 @@ const QuanLyTaiKhoan = () => {
 
   const handleDeleteAccount = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/accounts/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/accounts/${id}`);
       message.success("Account deleted successfully");
       fetchAccounts(); // Refresh account list after deletion
     } catch (error) {
@@ -47,11 +47,11 @@ const QuanLyTaiKhoan = () => {
     try {
       if (editingAccount) {
         // Edit existing account
-        await axios.put(`http://localhost:4000/api/accounts/${editingAccount.id}`, values);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/accounts/${editingAccount.id}`, values);
         message.success("Account updated successfully");
       } else {
         // Add new account
-        await axios.post("http://localhost:4000/api/accounts", values);
+        await axios.post("${process.env.REACT_APP_API_BASE_URL}/accounts", values);
         message.success("Account added successfully");
       }
       setIsModalVisible(false); // Close the modal

@@ -17,7 +17,7 @@ const QuanLyKichThuoc = () => {
   const fetchKichThuocData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:4000/api/kich-thuoc");
+      const res = await axios.get("${process.env.REACT_APP_API_BASE_URL}/kich-thuoc");
       setKichThuocData(res.data);
     } catch (error) {
       message.error("Lỗi khi tải dữ liệu");
@@ -40,12 +40,12 @@ const QuanLyKichThuoc = () => {
     try {
         const values = form.getFieldsValue();
         if (isEditMode) {
-            await axios.put(`http://localhost:4000/api/kich-thuoc/${editingRecord.id}`, {
+            await axios.put(`${process.env.REACT_APP_API_BASE_URL}/kich-thuoc/${editingRecord.id}`, {
                 kich_thuoc: values.kichThuoc,
             });
             message.success("Cập nhật kích thước thành công");
         } else {
-            await axios.post("http://localhost:4000/api/kich-thuoc", {
+            await axios.post("${process.env.REACT_APP_API_BASE_URL}/kich-thuoc", {
                 kich_thuoc: values.kichThuoc,
             });
             message.success("Thêm kích thước thành công");
@@ -68,7 +68,7 @@ const QuanLyKichThuoc = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/kich-thuoc/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/kich-thuoc/${id}`);
       message.success("Xóa kích thước thành công");
       fetchKichThuocData();
     } catch (error) {

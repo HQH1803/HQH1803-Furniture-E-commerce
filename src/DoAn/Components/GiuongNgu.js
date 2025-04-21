@@ -11,7 +11,7 @@ function GiuongNgu() {
                 alt="Giường Ngủ"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/giuong-ngu" showCategories={false} title="Giường Ngủ"/>
+            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/giuong-ngu" showCategories={false} title="Giường Ngủ"/>
             
         </div>
     </div>

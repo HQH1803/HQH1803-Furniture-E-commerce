@@ -10,7 +10,7 @@ const RelatedProducts = () => {
     const [favorites, setFavorites] = useState(new Set());
     // Lấy sản phẩm ngẫu nhiên
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/san-pham-ngau-nhien`)
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/san-pham-ngau-nhien`)
       .then((res) => {
         setRelatedProducts(res.data);
       })
@@ -26,7 +26,7 @@ const RelatedProducts = () => {
 
         if (favorites.has(productId)) {
             // Nếu sản phẩm đã yêu thích, gọi API xóa
-            await axios.delete('http://localhost:4000/api/favorites', {
+            await axios.delete('${process.env.REACT_APP_API_BASE_URL}/favorites', {
                 data: {
                     userEmail: customerUser.email,
                     productId: productId,
@@ -35,7 +35,7 @@ const RelatedProducts = () => {
             message.success('Đã bỏ yêu thích');
         } else {
             // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-            const response = await axios.post('http://localhost:4000/api/favorites', {
+            const response = await axios.post('${process.env.REACT_APP_API_BASE_URL}/favorites', {
                 user_email: customerUser.email,
                 product_id: productId,
             });

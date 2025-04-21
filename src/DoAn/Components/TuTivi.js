@@ -11,7 +11,7 @@ function TuTivi() {
                 alt="Tủ Kệ Tivi Hiện Đại"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="http://localhost:4000/api/tu-tivi" showCategories={false} title="Tủ Kệ Tivi Hiện Đại"/>
+            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/tu-tivi" showCategories={false} title="Tủ Kệ Tivi Hiện Đại"/>
             
         </div>
     </div>

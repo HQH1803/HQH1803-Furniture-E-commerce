@@ -8,7 +8,7 @@ const SanPhamBanChay = ({ limit }) => {
 
   useEffect(() => {
     // Gửi yêu cầu API để lấy sản phẩm bán chạy nhất
-    axios.get(`http://localhost:4000/api/san-pham-ban-chay?limit=${limit}`)
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/san-pham-ban-chay?limit=${limit}`)
       .then(res => {
         setTopProducts(res.data);
       })

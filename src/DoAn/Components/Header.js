@@ -18,7 +18,7 @@ const Header = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:4000/api/danh-sach-phong');
+                const response = await fetch('${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong');
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {

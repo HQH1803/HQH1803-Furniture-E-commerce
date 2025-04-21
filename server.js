@@ -21,7 +21,7 @@ const port = 4000;  // Bắt buộc sử dụng port 4000
 
 // Cấu hình CORS
 app.use(cors({
-    origin: '*',  // Cho phép tất cả các origin
+    origin: ['https://furniture-e-commerce-wt2i.onrender.com', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     credentials: true
@@ -2402,13 +2402,9 @@ app.get('/api/products', async (req, res) => {
         `);
         
         // Thay đổi URL hình ảnh từ localhost sang domain thực tế
-        const baseUrl = process.env.NODE_ENV === 'production' 
-            ? 'https://furniture-e-commerce-wt2i.onrender.com'
-            : 'http://localhost:4000';
-            
         const products = rows.map(product => ({
             ...product,
-            hinh_anh: product.hinh_anh.replace(/http:\/\/localhost:4000|https:\/\/furniture-e-commerce-wt2i\.onrender\.com/, baseUrl)
+            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
         }));
         
         console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);
@@ -3049,6 +3045,8 @@ app.listen(port, '0.0.0.0', (err) => {
         console.error("Error starting server:", err);
     } else {
         console.log(`[${new Date().toISOString()}] Server is running and listening on port ${port}`);
+        console.log(`[${new Date().toISOString()}] Environment: ${process.env.NODE_ENV}`);
+        console.log(`[${new Date().toISOString()}] Database connected successfully`);
         
         // Chạy các tác vụ định kỳ sau khi server đã khởi động
         console.log(`[${new Date().toISOString()}] Starting scheduled tasks...`);
@@ -3074,23 +3072,6 @@ app.listen(port, '0.0.0.0', (err) => {
                 console.error(`[${new Date().toISOString()}] Lỗi áp dụng mã khuyến mãi:`, error);
             }
         });
-    }
-});
-
-// API lấy tin tức mới nhất
-app.get('/api/tin-tuc-moi-nhat', async (req, res) => {
-    try {
-        console.log(`[${new Date().toISOString()}] Đang lấy tin tức mới nhất...`);
-        const [rows] = await connection.execute(`
-            SELECT * FROM tin_tuc
-            ORDER BY ngay_dang DESC
-            LIMIT 5
-        `);
-        console.log(`[${new Date().toISOString()}] Lấy tin tức mới nhất thành công: ${rows.length} tin tức`);
-        res.json(rows);
-    } catch (error) {
-        console.error(`[${new Date().toISOString()}] Lỗi lấy tin tức mới nhất:`, error);
-        res.status(500).json({ error: error.message });
     }
 });
 

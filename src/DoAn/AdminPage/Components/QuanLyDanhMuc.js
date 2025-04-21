@@ -28,9 +28,9 @@ const QuanLyDanhMuc = () => {
     try {
       const [loaiPhongRes, loaiSanPhamRes, lienKetRes, phongRes] = await Promise.all([
         axios.get("http://https://localhost:4000/api/loai-phong"),
-        axios.get("http://localhost:4000/api/loai-san-pham"),
-        axios.get("http://localhost:4000/api/loai-phong-san-pham"),
-        axios.get("http://localhost:4000/api/danh-sach-phong"), // Fetch room types and products
+        axios.get("${process.env.REACT_APP_API_BASE_URL}/loai-san-pham"),
+        axios.get("${process.env.REACT_APP_API_BASE_URL}/loai-phong-san-pham"),
+        axios.get("${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong"), // Fetch room types and products
       ]);
       setLoaiPhong(loaiPhongRes.data);
       setLoaiSanPham(loaiSanPhamRes.data);
@@ -72,13 +72,13 @@ const QuanLyDanhMuc = () => {
       }
   
       if (isEditMode) {
-        await axios.put(`http://localhost:4000/api/loai-phong-san-pham/${editingRecord.id}`, {
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/loai-phong-san-pham/${editingRecord.id}`, {
           loai_phong_id: values.loaiPhong,
           loai_san_pham_id: values.loaiSanPham,
         });
         message.success("Cập nhật thành công");
       } else {
-        await axios.post("http://localhost:4000/api/loai-phong-san-pham", {
+        await axios.post("${process.env.REACT_APP_API_BASE_URL}/loai-phong-san-pham", {
           loai_phong_id: values.loaiPhong,
           loai_san_pham_id: values.loaiSanPham,
         });
@@ -103,7 +103,7 @@ const QuanLyDanhMuc = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/loai-phong-san-pham/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/loai-phong-san-pham/${id}`);
       message.success("Xóa liên kết thành công");
       fetchData();
     } catch (error) {
