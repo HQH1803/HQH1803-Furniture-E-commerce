@@ -2156,8 +2156,14 @@ app.post('/api/san-pham/:productId/danh-gia', async (req, res) => {
 });
 
 app.get('/api/san-pham/:productId/danh-gia', async (req, res) => {
-    const { productId } = req.params;
-    const { page = 1, limit = 5, sortOrder = 'newest' } = req.query;
+    const productId = parseInt(req.params.productId);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const sortOrder = req.query.sortOrder || 'newest';
+
+    if (isNaN(productId)) {
+        return res.status(400).json({ message: 'Product ID không hợp lệ' });
+    }
 
     // Determine sorting order based on the query parameter
     const orderBy = sortOrder === 'newest' ? 'DESC' : 'ASC';
@@ -2167,22 +2173,34 @@ app.get('/api/san-pham/:productId/danh-gia', async (req, res) => {
 
     try {
         // Fetch the total number of reviews
-        const [totalResult] = await connection.execute('SELECT COUNT(*) as totalCount FROM danh_gia WHERE product_id = ?', [productId]);
+        const [totalResult] = await connection.execute(
+            'SELECT COUNT(*) as totalCount FROM danh_gia WHERE product_id = ?', 
+            [productId]
+        );
         const totalCount = totalResult[0].totalCount;
 
         // Fetch the reviews based on pagination and sorting
         const [rows] = await connection.execute(
-            `SELECT * FROM danh_gia WHERE product_id = ? ORDER BY created_at ${orderBy} LIMIT ? OFFSET ?`,
-            [productId, parseInt(limit), parseInt(offset)]
+            'SELECT * FROM danh_gia WHERE product_id = ? ORDER BY created_at ' + orderBy + ' LIMIT ? OFFSET ?',
+            [productId, limit, offset]
         );
 
         // Calculate total number of pages
         const totalPages = Math.ceil(totalCount / limit);
 
-        res.json({ reviews: rows, totalPages, totalCount });
+        res.json({ 
+            reviews: rows, 
+            totalPages, 
+            totalCount,
+            currentPage: page,
+            limit
+        });
     } catch (error) {
         console.error('Lỗi khi lấy danh sách đánh giá:', error);
-        res.status(500).json({ message: 'Lỗi khi lấy danh sách đánh giá' });
+        res.status(500).json({ 
+            message: 'Lỗi khi lấy danh sách đánh giá',
+            error: error.message 
+        });
     }
 });
 
