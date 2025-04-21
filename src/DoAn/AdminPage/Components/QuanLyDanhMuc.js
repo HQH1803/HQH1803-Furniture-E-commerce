@@ -78,7 +78,7 @@ const QuanLyDanhMuc = () => {
         });
         message.success("Cập nhật thành công");
       } else {
-        await axios.post("${process.env.REACT_APP_API_BASE_URL}/api/loai-phong-san-pham", {
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/loai-phong-san-pham`, {
           loai_phong_id: values.loaiPhong,
           loai_san_pham_id: values.loaiSanPham,
         });

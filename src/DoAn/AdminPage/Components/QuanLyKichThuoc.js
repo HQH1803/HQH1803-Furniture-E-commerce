@@ -17,7 +17,7 @@ const QuanLyKichThuoc = () => {
   const fetchKichThuocData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("${process.env.REACT_APP_API_BASE_URL}/api/kich-thuoc");
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/kich-thuoc`);
       setKichThuocData(res.data);
     } catch (error) {
       message.error("Lỗi khi tải dữ liệu");
@@ -45,7 +45,7 @@ const QuanLyKichThuoc = () => {
             });
             message.success("Cập nhật kích thước thành công");
         } else {
-            await axios.post("${process.env.REACT_APP_API_BASE_URL}/api/kich-thuoc", {
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/kich-thuoc`, {
                 kich_thuoc: values.kichThuoc,
             });
             message.success("Thêm kích thước thành công");

@@ -64,7 +64,7 @@ export const UserProvider = ({ children }) => {
             if (userData.role === 'admin') {
                 setAdminUser(userData);
                 localStorage.setItem('admin_user', JSON.stringify(userData)); // Lưu thông tin admin vào localStorage
-                navigate('/adminpage');
+                window.location.href = 'https://furniture-e-commerce-wt2i.onrender.com/adminpage';
             } else if (userData.role === 'customer') {
                 setCustomerUser(userData);
                 localStorage.setItem('customer_user', JSON.stringify(userData)); // Lưu thông tin customer vào localStorage

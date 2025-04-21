@@ -17,7 +17,7 @@ const QuanLyLoaiPhong = () => {
 
   const fetchRoomTypes = async () => {
     try {
-      const response = await axios.get("${process.env.REACT_APP_API_BASE_URL}/api/loai-phong");
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/loai-phong`);
       setRoomTypes(response.data);
     } catch (error) {
       message.error("Lỗi khi lấy danh sách loại phòng");
@@ -66,7 +66,7 @@ const QuanLyLoaiPhong = () => {
         message.success("Cập nhật loại phòng thành công");
       } else {
         // Add mode
-        const response = await axios.post("${process.env.REACT_APP_API_BASE_URL}/api/loai-phong", values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/loai-phong`, values);
         setRoomTypes([...roomTypes, response.data]);
         fetchRoomTypes();  // Lấy lại danh sách phòng sau khi thêm
         message.success("Thêm loại phòng thành công");
