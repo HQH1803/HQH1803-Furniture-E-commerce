@@ -261,3 +261,6 @@ h3 {
     display: flex;
     margin: 13px;
 }
+.vnp_visible{
+    height: 100px;
+}
