@@ -262,5 +262,5 @@ h3 {
     margin: 13px;
 }
 .vnp_visible{
-    height: 100px;
+    height: 400px !important;
 }

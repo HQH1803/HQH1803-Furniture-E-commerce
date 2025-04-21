@@ -62,5 +62,13 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
+    <script>
+      window.onload = function () {
+        const chatIframe = document.getElementById("vnp_code_chat");
+        if (chatIframe) {
+          chatIframe.style.removeProperty("width");
+        }
+      };
+    </script>
     </body>
 </html>
