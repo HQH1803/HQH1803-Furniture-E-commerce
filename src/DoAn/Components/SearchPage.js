@@ -18,7 +18,7 @@ const SearchPage = () => {
     setLoading(true);
     setError(null);
 
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/search/${tentimkiem}`)
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/search/${tentimkiem}`)
       .then((res) => {
         setRelatedProducts(res.data);
         setLoading(false);

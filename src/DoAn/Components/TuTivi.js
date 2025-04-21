@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductList from './ProductList'; 
 function TuTivi() {
-
+const SANPHAM_URL = `${process.env.REACT_APP_API_BASE_URL}/api/tu-tivi`
   return (
     <div className='main-content'>
         <div>
@@ -11,7 +11,7 @@ function TuTivi() {
                 alt="Tủ Kệ Tivi Hiện Đại"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/tu-tivi" showCategories={false} title="Tủ Kệ Tivi Hiện Đại"/>
+            <ProductList apiUrl={SANPHAM_URL} showCategories={false} title="Tủ Kệ Tivi Hiện Đại"/>
             
         </div>
     </div>

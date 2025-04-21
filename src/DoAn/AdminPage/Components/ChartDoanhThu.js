@@ -17,7 +17,7 @@ const TongDoanhThu = ({ period }) => {
 
   useEffect(() => {
     // Gửi yêu cầu API để lấy dữ liệu doanh thu theo khoảng thời gian
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/doanh-thu?period=${period}`)
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/doanh-thu?period=${period}`)
       .then((res) => {
         const doanhThuData = res.data;
 

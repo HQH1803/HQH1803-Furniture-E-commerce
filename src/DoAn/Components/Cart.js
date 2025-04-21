@@ -32,7 +32,7 @@ const Cart = () => {
     // Function to check stock availability for a product
     const checkStock = async (productId, quantity) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/stock/${productId}`);
+            const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/products/stock/${productId}`);
             const { inStock, message, stockQuantity } = response.data;
 
             if (!inStock) {

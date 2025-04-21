@@ -2,7 +2,7 @@ import React from 'react';
 import ProductList from './ProductList'; 
 import ServiceList from './ServiceList';
 function GheVanPhong() {
-
+const SANPHAM_URL = `${process.env.REACT_APP_API_BASE_URL}/api/ghe-van-phong`
   return (
     <div className='main-content'>
         <div className="banner-collection-header text-center">
@@ -12,7 +12,7 @@ function GheVanPhong() {
                 alt="Ghế Văn Phòng"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/ghe-van-phong" showCategories={false} title="Ghế Văn Phòng"/>
+            <ProductList apiUrl={SANPHAM_URL} showCategories={false} title="Ghế Văn Phòng"/>
             
         </div>
     </div>

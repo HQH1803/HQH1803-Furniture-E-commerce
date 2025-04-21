@@ -4,8 +4,8 @@ import FacebookSDK from '../Components/FacebookSDK';
 const CommentForm = ({ id, type }) => {
   // Dynamically create the URL based on the type and id
   const urlMap = {
-    product: `${process.env.REACT_APP_API_BASE_URL}/chitietsanpham/${id}`,
-    news: `${process.env.REACT_APP_API_BASE_URL}/chi-tiet-tin-tuc/${id}`
+    product: `${process.env.REACT_APP_API_BASE_URL}/api/chitietsanpham/${id}`,
+    news: `${process.env.REACT_APP_API_BASE_URL}/api/chi-tiet-tin-tuc/${id}`
   };
 
   const Url = urlMap[type]; // Select the correct URL based on the type

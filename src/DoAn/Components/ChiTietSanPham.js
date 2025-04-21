@@ -15,7 +15,7 @@ const ChiTietSanPham = () => {
   const [quantity, setQuantity] = useState(1); // Thêm state cho số lượng
   const { addToCart, cart } = useCart();
   const [activeTab, setActiveTab] = useState('description');
-  const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/chitietsanpham/${id}`;
+  const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/api/chitietsanpham/${id}`;
   const { customerUser} = useUser();  // Access both admin and customer users from UserContext
 
   const [favorites, setFavorites] = useState(new Set()); // State để lưu sản phẩm yêu thích
@@ -38,7 +38,7 @@ const ChiTietSanPham = () => {
         }
 
         // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/favorites`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/favorites`, {
             user_email: customerUser.email,
             product_id: productId,
         });
@@ -80,7 +80,7 @@ const ChiTietSanPham = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/chitietsanpham/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/chitietsanpham/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching data: ", error);

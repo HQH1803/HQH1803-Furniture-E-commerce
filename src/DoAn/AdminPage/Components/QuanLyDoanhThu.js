@@ -16,7 +16,7 @@ const QuanLyDoanhThu = () => {
     const fetchRevenueData = async () => {
         setLoading(true);
         try {
-            let url = `${process.env.REACT_APP_API_BASE_URL}/doanh-thu?period=${period}`;
+            let url = `${process.env.REACT_APP_API_BASE_URL}/api/doanh-thu?period=${period}`;
             if (startDate && endDate) {
                 url += `&startDate=${startDate.format('YYYY-MM-DD')}&endDate=${endDate.format('YYYY-MM-DD')}`;
             }

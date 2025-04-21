@@ -19,7 +19,7 @@ const MoTaLoaiPhong = ({ id }) => {
     useEffect(() => {
         const fetchMotaLoaiPhong = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/loai-phong/${id}`);
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/loai-phong/${id}`);
                 console.log(response.data)
                 if (response.data && response.data.mo_ta_phong) {
                     setMotaLoaiPhong(response.data.mo_ta_phong);

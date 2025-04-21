@@ -11,10 +11,10 @@ import FacebookSDK from './FacebookSDK';
 const NewsDetail = () => {
     const { id } = useParams(); // Get the article ID from the URL
     const [newsItem, setNewsItem] = useState(null);
-    const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/chi-tiet-tin-tuc/${id}`;
+    const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/api/chi-tiet-tin-tuc/${id}`;
     
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_BASE_URL}/tin-tuc-chi-tiet/${id}`)
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tin-tuc-chi-tiet/${id}`)
             .then((res) => {
                 setNewsItem(res.data);
             })

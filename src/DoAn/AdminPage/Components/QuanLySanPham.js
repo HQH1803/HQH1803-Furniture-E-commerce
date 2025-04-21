@@ -25,6 +25,7 @@ function Products() {
   const [loaiSanPham, setLoaiSanPham] = useState([]);
   const [selectedLoaiPhong, setSelectedLoaiPhong] = useState(null);
   const [selectedLoaiSanPham, setSelectedLoaiSanPham] = useState(null);
+  
   useEffect(() => {
       fetchProducts();
       fetchKichThuoc(); 
@@ -32,7 +33,7 @@ function Products() {
   }, []);
   // Lấy danh sách loại phòng từ API
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/loai-phong`).then(response => {      
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/loai-phong`).then(response => {      
       setLoaiPhong(response.data);
     });
   }, []);
@@ -45,16 +46,16 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/san-pham`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/san-pham`);
       setProducts(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách sản phẩm');
     }
   };
-
+  const UPLOAD_URL = `${process.env.REACT_APP_API_BASE_URL}/api/admin/upload`
   const fetchKichThuoc = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/kich-thuoc`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/kich-thuoc`);
       setKichThuocList(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách kích thước');
@@ -63,7 +64,7 @@ function Products() {
 
   const fetchMauSac = async () => { 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/mau-sac`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/mau-sac`);
       setMauSacList(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách màu sắc');
@@ -86,12 +87,12 @@ const handleEdit = async (product) => {
     setIsEdit(true);
     setCurrentProduct(product);
     setIsModalVisible(true);
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/getKichThuocMauSac/${product.id}`)
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/getKichThuocMauSac/${product.id}`)
         .then(response => {
             const { kichThuoc, mauSac } = response.data;
           console.log("abc",response.data)
             setSelectedLoaiPhong(product.loai_phong_id || [])
-            axios.get(`${process.env.REACT_APP_API_BASE_URL}/getLoaiSanPham/${product.id_loaiSP}`)
+            axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/getLoaiSanPham/${product.id_loaiSP}`)
                 .then(loaiSanPhamResponse => {
                   const uniqueKichThuoc = Array.from(new Set(kichThuoc.map(item => item.id)));
                   const uniqueMauSac = Array.from(new Set(mauSac.map(item => item.id)));               
@@ -126,7 +127,7 @@ const handleEdit = async (product) => {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/admin/san-pham/${productId}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/admin/san-pham/${productId}`);
       setProducts(products.filter(product => product.id !== productId));
       message.success('Xóa sản phẩm thành công');
     } catch (error) {
@@ -179,7 +180,7 @@ const handleEdit = async (product) => {
       // Step 3: Check if we are editing an existing product or adding a new one
       if (isEdit) {
         // Update existing product
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/admin/san-pham/${currentProduct.id}`, values);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/admin/san-pham/${currentProduct.id}`, values);
         
         // Update product list locally after successful update
         setProducts(products.map(product =>
@@ -189,7 +190,7 @@ const handleEdit = async (product) => {
         message.success('Cập nhật sản phẩm thành công');
       } else {
         // Add new product
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/san-pham`, values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/san-pham`, values);
         
         // Update product list locally with the new product
         setProducts(prevProducts => [...prevProducts, response.data]);
@@ -221,7 +222,7 @@ const handleEdit = async (product) => {
   // Lấy danh sách các loại sản phẩm liên quan đến loại phòng đã chọn
   useEffect(() => {
     if (selectedLoaiPhong) {
-      axios.get(`${process.env.REACT_APP_API_BASE_URL}/danh-sach-phong`).then(response => {
+      axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/danh-sach-phong`).then(response => {
         // Lọc loại sản phẩm phù hợp với loại phòng đã chọn
         console.log(selectedLoaiPhong)
         const filteredData = response.data.find(
@@ -309,7 +310,7 @@ const handleEdit = async (product) => {
           </Form.Item>
           <Form.Item name="hinh_anh" label="Hình Ảnh">
             <Upload
-              action="${process.env.REACT_APP_API_BASE_URL}/admin/upload"
+              action={UPLOAD_URL}
               listType="picture-card"
               fileList={fileList}
               onChange={handleFileChange}
@@ -318,7 +319,7 @@ const handleEdit = async (product) => {
                 const formData = new FormData();
                 formData.append('file', file);
                 try {
-                  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/upload`, {
+                  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/admin/upload`, {
                     method: 'POST',
                     body: formData,
                   });
@@ -326,7 +327,7 @@ const handleEdit = async (product) => {
                     throw new Error('Upload failed');
                   }
                   const result = await response.json();
-                  file.url = `http://localhost:4000/${result.url}`;
+                  file.url = `${process.env.REACT_APP_API_BASE_URL}/${result.url}`;
                   onSuccess(result, file);
                   setFileList([file]);
                 } catch (error) {

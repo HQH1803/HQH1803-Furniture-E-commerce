@@ -2,8 +2,8 @@ import React from 'react';
 import ProductList from './ProductList'; 
 import ServiceList from './ServiceList';
 function BanLamViec() {
-
-  return (
+  const SANPHAM_URL = `${process.env.REACT_APP_API_BASE_URL}/api/ban-lam-viec`
+  return (    
     <div className='main-content'>
         <div>
             <img 
@@ -12,7 +12,7 @@ function BanLamViec() {
                 alt="Bàn Làm Việc"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/ban-lam-viec" showCategories={false} title="Bàn làm việc"/>
+            <ProductList apiUrl={SANPHAM_URL} showCategories={false} title="Bàn làm việc"/>
             
         </div>
     </div>

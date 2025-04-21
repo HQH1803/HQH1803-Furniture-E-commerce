@@ -105,7 +105,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/don-hang`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/don-hang`);
       setOrders(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách đơn hàng');
@@ -114,7 +114,7 @@ const Orders = () => {
     
   const handleDelete = async (orderId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/don-hang/${orderId}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/don-hang/${orderId}`);
       setOrders(orders.filter((order) => order.order_id !== orderId));
       message.success('Xóa đơn hàng thành công');
     } catch (error) {
@@ -134,7 +134,7 @@ const Orders = () => {
   };
   const fetchOrderDetails = async (orderId) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/don-hang/${orderId}/details`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/don-hang/${orderId}/details`);
       setOrderDetails(response.data);
       setIsModalVisible(true);
     } catch (error) {

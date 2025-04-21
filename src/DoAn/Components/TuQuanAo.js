@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductList from './ProductList'; 
 function TuQuanAo() {
+  const SANPHAM_URL = `${process.env.REACT_APP_API_BASE_URL}/api/tu-quan-ao`
   return (
     <div className='main-content'>
         <div>
@@ -10,7 +11,7 @@ function TuQuanAo() {
                 alt="Tủ Quần Áo"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/tu-quan-ao" showCategories={false} title="Tủ Quần Áo"/>
+            <ProductList apiUrl={SANPHAM_URL} showCategories={false} title="Tủ Quần Áo"/>
             
         </div>
     </div>

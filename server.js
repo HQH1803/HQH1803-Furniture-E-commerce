@@ -11,6 +11,7 @@ const CryptoJS = require('crypto-js');
 const moment = require('moment');
 const qs = require('qs');
 const cron = require('node-cron');
+const bodyParser = require('body-parser');
 
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.apps.googleusercontent.com'); 
@@ -24,12 +25,13 @@ app.use(cors({
     origin: ['https://furniture-e-commerce-wt2i.onrender.com', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-    credentials: true
+    credentials: true,
+    exposedHeaders: ['Content-Range', 'X-Content-Range']
 }));
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Cấu hình body parser với giới hạn lớn hơn cho upload files
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 if (!port) {
     console.error('PORT environment variable is required in production');
@@ -64,22 +66,36 @@ connection.getConnection((err, connection) => {
     connection.release();
 });
 
-// Cấu hình multer để lưu trữ tệp tin
+// Cấu hình multer cho upload files
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const uploadDir = path.join(__dirname, 'uploads');
+        // Tạo thư mục uploads nếu chưa tồn tại
         if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir);
+            fs.mkdirSync(uploadDir, { recursive: true });
         }
         cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
-        const ext = path.extname(file.originalname);
-        cb(null, `file_${Date.now()}${ext}`);
+        // Tạo tên file unique
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, 'file_' + uniqueSuffix + path.extname(file.originalname));
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // Giới hạn 5MB
+    },
+    fileFilter: function (req, file, cb) {
+        // Chỉ cho phép upload ảnh
+        if (!file.originalname.match(/\.(jpg|jpeg|png|gif|webp)$/)) {
+            return cb(new Error('Chỉ cho phép upload file ảnh!'), false);
+        }
+        cb(null, true);
+    }
+});
 
 // Middleware để áp dụng CORS cho tất cả các routes
 app.use(cors());
@@ -89,7 +105,18 @@ app.use(cors({
 
 // Endpoint để xử lý tải lên hình ảnh
 app.post('/api/admin/upload', upload.single('file'), (req, res) => {
-    res.json({ url: `/uploads/${req.file.filename}` });
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'Không có file được upload' });
+        }
+        
+        // Trả về URL của file
+        const fileUrl = `/uploads/${req.file.filename}`;
+        res.json({ url: fileUrl });
+    } catch (error) {
+        console.error('Lỗi upload file:', error);
+        res.status(500).json({ error: 'Lỗi server khi upload file' });
+    }
 });
 // Cấu hình Express để phục vụ các tệp tĩnh từ thư mục uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -2402,9 +2429,13 @@ app.get('/api/products', async (req, res) => {
         `);
         
         // Thay đổi URL hình ảnh từ localhost sang domain thực tế
+        const baseUrl = process.env.NODE_ENV === 'production' 
+            ? 'https://furniture-e-commerce-wt2i.onrender.com'
+            : 'http://localhost:4000';
+            
         const products = rows.map(product => ({
             ...product,
-            hinh_anh: product.hinh_anh.replace('http://localhost:4000', `https://furniture-e-commerce-wt2i.onrender.com`)
+            hinh_anh: product.hinh_anh.replace(/http:\/\/localhost:4000|https:\/\/furniture-e-commerce-wt2i\.onrender\.com/, baseUrl)
         }));
         
         console.log(`[${new Date().toISOString()}] Lấy danh sách sản phẩm thành công: ${products.length} sản phẩm`);
@@ -2727,7 +2758,7 @@ app.post("/api/tinh-doanh-thu", async (req, res) => {
 
 cron.schedule('59 23 * * *', async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/tinh-doanh-thu`);
+      await axios.post('http://https://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
       console.log('Đã cập nhật doanh thu');
     } catch (error) {
       console.error('Lỗi khi cập nhật doanh thu:', error);
@@ -3028,51 +3059,24 @@ app.get('/api/admin/promotions',async (req, res)=> {
     }
   });
 // Middleware cho static files - đặt SAU các API routes
-const buildPath = process.env.NODE_ENV === 'production' 
-  ? path.join(__dirname, 'build')  // Thư mục build nằm cùng cấp với server.js
-  : path.join(__dirname, 'build');
+const buildPath = path.join(__dirname, 'build');
 
-// Serve static files
+// Serve static files từ thư mục build
 app.use(express.static(buildPath));
 
-// Route handler '*' - luôn đặt CUỐI CÙNG sau tất cả các routes khác
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-// Khởi động server
-app.listen(port, '0.0.0.0', (err) => {
-    if (err) {
-        console.error("Error starting server:", err);
-    } else {
-        console.log(`[${new Date().toISOString()}] Server is running and listening on port ${port}`);
-        console.log(`[${new Date().toISOString()}] Environment: ${process.env.NODE_ENV}`);
-        console.log(`[${new Date().toISOString()}] Database connected successfully`);
-        
-        // Chạy các tác vụ định kỳ sau khi server đã khởi động
-        console.log(`[${new Date().toISOString()}] Starting scheduled tasks...`);
-        
-        // Cập nhật trạng thái đơn hàng - mỗi 30 phút
-        cron.schedule('*/30 * * * *', async () => {
-            try {
-                console.log(`[${new Date().toISOString()}] Đang cập nhật trạng thái đơn hàng...`);
-                await updateAllOrderStatuses();
-                console.log(`[${new Date().toISOString()}] Cập nhật trạng thái đơn hàng thành công`);
-            } catch (error) {
-                console.error(`[${new Date().toISOString()}] Lỗi cập nhật trạng thái đơn hàng:`, error);
-            }
-        });
+// Serve static files từ thư mục uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-        // Áp dụng mã khuyến mãi - mỗi 6 giờ
-        cron.schedule('0 */6 * * *', async () => {
-            try {
-                console.log(`[${new Date().toISOString()}] Đang áp dụng mã khuyến mãi: TATCASANPHAM`);
-                await applyPromotionForAllProducts('TATCASANPHAM');
-                console.log(`[${new Date().toISOString()}] Áp dụng mã khuyến mãi thành công`);
-            } catch (error) {
-                console.error(`[${new Date().toISOString()}] Lỗi áp dụng mã khuyến mãi:`, error);
-            }
-        });
-    }
+// Route mặc định để serve React app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+// Khởi động server
+app.listen(port, () => {
+    console.log(`[${new Date().toISOString()}] Server is running on port ${port}`);
+    console.log(`[${new Date().toISOString()}] Environment: ${process.env.NODE_ENV}`);
+    console.log(`[${new Date().toISOString()}] Database connected successfully`);
 });
 
 

@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { message } from 'antd';
+import { message} from 'antd';
 import Pagination from './Pagination';
 import axios from 'axios';
 import { useUser } from '../contexts/UserContext';
 import _ from 'lodash';
-import { Link, useNavigate } from 'react-router-dom';
-import api from '../../config/api';
-import config from '../../config/config';
-import { toast } from 'react-toastify';
-
 function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
   const { customerUser} = useUser();  // Access both admin and customer users from UserContext
-  const navigate = useNavigate();
 
-  const [favorites, setFavorites] = useState([]); // State để lưu sản phẩm yêu thích
+  const [favorites, setFavorites] = useState(new Set()); // State để lưu sản phẩm yêu thích
 
   // Calculate the products to display on the current page
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -23,11 +17,10 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
   useEffect(() => {
     const fetchFavorites = async () => {
         try {
-            const response = await api.get(config.endpoints.favorites.get(customerUser.email));
-            setFavorites(response.data);
+            const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/favorites/${customerUser.email}`);
+            setFavorites(new Set(response.data.favorites));
         } catch (error) {
-            console.error('Error fetching favorites:', error);
-            toast.error('Không thể tải danh sách yêu thích');
+            console.error('Lỗi khi lấy sản phẩm yêu thích:', error);
         }
     };
 
@@ -36,30 +29,48 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
     }
   }, [customerUser]);
   
-  const handleAddToFavorites = async (productId) => {
-    if (!customerUser) {
-        navigate('/dang-nhap');
-        return;
-    }
-
+  const handleFavoriteClick = async (productId) => {
     try {
-        if (favorites.some(fav => fav.product_id === productId)) {
-            await api.delete(config.endpoints.favorites.delete(customerUser.email, productId));
-            setFavorites(favorites.filter(fav => fav.product_id !== productId));
-            toast.success('Đã xóa khỏi danh sách yêu thích');
-        } else {
-            const response = await api.post(config.endpoints.favorites.add, {
-                customer_email: customerUser.email,
-                product_id: productId
-            });
-            setFavorites([...favorites, response.data]);
-            toast.success('Đã thêm vào danh sách yêu thích');
+        // Kiểm tra nếu user đã đăng nhập
+        if (!customerUser || !customerUser.email) {
+            message.error('Vui lòng đăng nhập tài khoản');
+            return;
         }
+
+        if (favorites.has(productId)) {
+            // Nếu sản phẩm đã yêu thích, gọi API xóa
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/favorites`, {
+                data: {
+                    userEmail: customerUser.email,
+                    productId: productId,
+                },
+            });
+            message.success('Đã bỏ yêu thích');
+        } else {
+            // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/favorites`, {
+                user_email: customerUser.email,
+                product_id: productId,
+            });
+            message.success(response.data.message); // Hiển thị thông báo thành công
+        }
+
+        // Cập nhật danh sách yêu thích
+        setFavorites((prev) => {
+            const newFavorites = new Set(prev);
+            if (newFavorites.has(productId)) {
+                newFavorites.delete(productId); // Xóa nếu đã yêu thích
+            } else {
+                newFavorites.add(productId); // Thêm nếu chưa yêu thích
+            }
+            return newFavorites;
+        });
     } catch (error) {
-        console.error('Error updating favorites:', error);
-        toast.error('Không thể cập nhật danh sách yêu thích');
+        console.error('Lỗi khi xử lý yêu thích:', error.response ? error.response.data : error.message);
+        // Xử lý lỗi nếu cần (ví dụ: thông báo cho người dùng)
     }
 };
+
 
   return (
     <div className="container">
@@ -72,10 +83,10 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleAddToFavorites(product.id); // Gọi hàm xử lý khi bấm vào nút yêu thích
+                    handleFavoriteClick(product.id); // Gọi hàm xử lý khi bấm vào nút yêu thích
                   }}
                   aria-label="Yêu thích"
-                  className={`onwishlist_btn_add ${favorites.some(fav => fav.product_id === product.id) ? 'active' : ''}`} // Thêm class active nếu sản phẩm đã được yêu thích
+                  className={`onwishlist_btn_add ${favorites.has(product.id) ? 'active' : ''}`} // Thêm class active nếu sản phẩm đã được yêu thích
                   data-handle={product.handle}
                   data-title={product.tenSP}
                   data-id={product.id}
@@ -84,7 +95,7 @@ function Product({ products, productsPerPage, currentPage, setCurrentPage }) {
                 >
                   <img
                     className="wishlist-icon"
-                    src={favorites.some(fav => fav.product_id === product.id) 
+                    src={favorites.has(product.id) 
                       ? require("../images/Logo/favorite_filled.webp") 
                       : require("../images/Logo/favorite.webp")}
                   // Sử dụng hình ảnh khác nếu yêu thích

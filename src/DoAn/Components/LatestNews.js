@@ -9,7 +9,7 @@ const LatestNews = () => {
   useEffect(() => {
     const fetchLatestNews = async () => {
       try {
-        const response = await axios.get("${process.env.REACT_APP_API_BASE_URL}/tin-tuc");
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tin-tuc`);
         const sortedNews = response.data.sort((a, b) => new Date(b.ngay_dang) - new Date(a.ngay_dang));
         setLatestNews(sortedNews.slice(0, 5)); // Lấy 5 tin tức mới nhất
       } catch (error) {

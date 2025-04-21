@@ -15,7 +15,8 @@ const News = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
   const [fileList, setFileList] = useState([]); // File list state for image uploads
-
+  const UPLOAD_URL = `${process.env.REACT_APP_API_BASE_URL}/api/admin/upload`
+  
   useEffect(() => {
     fetchNews();
   }, []);
@@ -28,7 +29,7 @@ const News = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/tin-tuc`);
       setNews(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách tin tức');
@@ -63,7 +64,7 @@ const News = () => {
 
   const handleDelete = async (newsId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc/${newsId}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/admin/tin-tuc/${newsId}`);
       setNews(news.filter(newsItem => newsItem.id !== newsId));
       message.success('Xóa tin tức thành công');
     } catch (error) {
@@ -88,11 +89,11 @@ const News = () => {
       values.hinh_anh = fileList[0]?.url || ''; 
       values.ngay_dang = moment().format('YYYY-MM-DD HH:mm:ss'); 
       if (isEditing) {
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc/${currentNews.id}`, values);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/admin/tin-tuc/${currentNews.id}`, values);
         setNews(news.map(newsItem => newsItem.id === currentNews.id ? { ...values, id: currentNews.id } : newsItem));
         message.success('Cập nhật tin tức thành công');
       } else {
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/tin-tuc`, values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/tin-tuc`, values);
         setNews([...news, response.data]);
         message.success('Thêm tin tức thành công');
         fetchNews();
@@ -214,7 +215,7 @@ const News = () => {
             label="Hình Ảnh"
           >
             <Upload
-              action="${process.env.REACT_APP_API_BASE_URL}/admin/upload"
+              action={UPLOAD_URL}
               listType="picture-card"
               fileList={fileList} // Use fileList state
               onChange={handleFileChange} // Use file change handler
@@ -223,7 +224,7 @@ const News = () => {
                 const formData = new FormData();
                 formData.append('file', file);
                 try {
-                  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/upload`, {
+                  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/admin/upload`, {
                     method: 'POST',
                     body: formData,
                   });
@@ -231,7 +232,7 @@ const News = () => {
                     throw new Error('Upload failed');
                   }
                   const result = await response.json();
-                  file.url = `http://localhost:4000/${result.url}`; // Get image URL
+                  file.url = `${process.env.REACT_APP_API_BASE_URL}/${result.url}`; // Get image URL
                   onSuccess(result);
                 } catch (error) {
                   onError(error);

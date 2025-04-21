@@ -2,6 +2,7 @@ import React from 'react';
 import ProductList from './ProductList'; 
 import ServiceList from './ServiceList';
 function Ghe() {
+  const SANPHAM_URL = `${process.env.REACT_APP_API_BASE_URL}/api/ghe-sofa`
   return (
     <div className='main-content'>
         <div>
@@ -11,7 +12,7 @@ function Ghe() {
                 alt="Ghế Sofa"/>
         </div>
         <div className='container'>   
-            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/ghe-sofa" showCategories={false} title="Ghế Sofa"/>
+            <ProductList apiUrl={SANPHAM_URL} showCategories={false} title="Ghế Sofa"/>
             
         </div>
     </div>

@@ -8,7 +8,7 @@ const SanPhamMoi = () => {
   const [favorites, setFavorites] = useState(new Set());
   
   useEffect(() => {
-    axios.get("${process.env.REACT_APP_API_BASE_URL}/san-pham-moi")
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/san-pham-moi`)
       .then((res) => {
         const pr = res.data;
         setSanphammoi(pr);
@@ -25,7 +25,7 @@ const SanPhamMoi = () => {
 
             if (favorites.has(productId)) {
                 // Nếu sản phẩm đã yêu thích, gọi API xóa
-                await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/favorites`, {
+                await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/favorites`, {
                     data: {
                         userEmail: customerUser.email,
                         productId: productId,
@@ -34,7 +34,7 @@ const SanPhamMoi = () => {
                 message.success('Đã bỏ yêu thích');
             } else {
                 // Nếu sản phẩm chưa yêu thích, gọi API thêm yêu thích
-                const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/favorites`, {
+                const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/favorites`, {
                     user_email: customerUser.email,
                     product_id: productId,
                 });

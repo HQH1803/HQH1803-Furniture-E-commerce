@@ -26,7 +26,7 @@ const Promotions = () => {
 
   const fetchPromotions = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/promotions`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/promotions`);
       setPromotions(response.data);
     } catch (error) {
       message.error('Lỗi khi lấy danh sách khuyến mãi');
@@ -61,7 +61,7 @@ const Promotions = () => {
 
   const handleDelete = async (promotionId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/admin/promotions/${promotionId}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/admin/promotions/${promotionId}`);
       setPromotions(promotions.filter(promotionItem => promotionItem.id !== promotionId));
       message.success('Xóa khuyến mãi thành công');
     } catch (error) {
@@ -91,13 +91,13 @@ const Promotions = () => {
       }
 
       if (isEditing) {
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/admin/promotions/${currentPromotion.id}`, values);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/admin/promotions/${currentPromotion.id}`, values);
         setPromotions(promotions.map(promotionItem => 
           promotionItem.id === currentPromotion.id ? { ...values, id: currentPromotion.id } : promotionItem
         ));
         message.success('Cập nhật khuyến mãi thành công');
       } else {
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/promotions`, values);
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/promotions`, values);
         setPromotions([...promotions, response.data]);
         message.success('Thêm khuyến mãi thành công');
         fetchPromotions();

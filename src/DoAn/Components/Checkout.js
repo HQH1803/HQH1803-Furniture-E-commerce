@@ -305,7 +305,7 @@ const Checkout = () => {
     const totalAll = isBuyNow ? (parseInt(product.gia) + shippingFee): totalPrice
     try {
         
-        const paymentResponse = await axios.post('http://localhost:4000/payment', {totalAll});
+        const paymentResponse = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/payment`, {totalAll});
 
         if (paymentResponse.data.return_code === 1) {
             const appTransId = paymentResponse.data.app_trans_id;
@@ -314,12 +314,12 @@ const Checkout = () => {
             const paymentWindow = window.open(orderUrl, '_blank');
 
             const intervalId = setInterval(async () => {
-                const statusResponse = await axios.post('http://localhost:4000/check-status-order', {
+                const statusResponse = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/check-status-order`, {
                     app_trans_id: appTransId 
                 });
                 
                 if (statusResponse.data.return_code === 1) {
-                  const orderResponse = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/create-order`, orderData);
+                  const orderResponse = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/create-order`, orderData);
                     if (orderResponse.data.message === 'Success') {
                       
                         const orderCode = orderResponse.data.order_code;
@@ -443,7 +443,7 @@ const Checkout = () => {
     };
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/create-order`, orderData);
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/create-order`, orderData);
     
       // Log toàn bộ phản hồi từ API để kiểm tra
       console.log('API Response:', response.data);
@@ -494,7 +494,7 @@ const Checkout = () => {
     }
   
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/promotions`, { code: promoCode });
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/promotions`, { code: promoCode });
       if (response.data.success) {
         const { discount } = response.data;
         setDiscount(discount);  // Áp dụng giảm giá nếu mã hợp lệ

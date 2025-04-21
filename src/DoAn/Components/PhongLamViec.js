@@ -3,6 +3,7 @@ import ServiceList from './ServiceList';
 import MoTaLoaiPhong from './MoTaLoaiPhong';
 import ProductList from './ProductList'; 
 function PhongLamViec() {
+  const SANPHAM_URL = `${process.env.REACT_APP_API_BASE_URL}/api/phong-lam-viec`
   return (
     <div className='main-content'>
         <div>
@@ -12,7 +13,7 @@ function PhongLamViec() {
                 alt="Nội Thất Phòng Làm Việc"/>
         </div>        
         <div className='container'>
-            <ProductList apiUrl="${process.env.REACT_APP_API_BASE_URL}/phong-lam-viec" showCategories={true} title="Sản phẩm Dành cho phòng làm việc"/>
+            <ProductList apiUrl={SANPHAM_URL} showCategories={true} title="Sản phẩm Dành cho phòng làm việc"/>
             
             <MoTaLoaiPhong id={3}/>
         </div>
