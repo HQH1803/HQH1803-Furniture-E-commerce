@@ -2165,27 +2165,52 @@ app.get('/api/san-pham/:productId/danh-gia', async (req, res) => {
         return res.status(400).json({ message: 'Product ID không hợp lệ' });
     }
 
-    // Determine sorting order based on the query parameter
-    const orderBy = sortOrder === 'newest' ? 'DESC' : 'ASC';
-
-    // Calculate the offset for pagination
-    const offset = (page - 1) * limit;
-
     try {
-        // Fetch the total number of reviews
-        const [totalResult] = await connection.execute(
-            'SELECT COUNT(*) as totalCount FROM danh_gia WHERE product_id = ?', 
-            [productId]
-        );
-        const totalCount = totalResult[0].totalCount;
+        // Xác định thứ tự sắp xếp
+        const orderBy = sortOrder === 'newest' ? 'DESC' : 'ASC';
+        
+        // Tính toán offset
+        const offset = (page - 1) * limit;
 
-        // Fetch the reviews based on pagination and sorting
-        const [rows] = await connection.execute(
-            'SELECT * FROM danh_gia WHERE product_id = ? ORDER BY created_at ' + orderBy + ' LIMIT ? OFFSET ?',
-            [productId, limit, offset]
-        );
+        let totalCount = 0;
+        let rows = [];
 
-        // Calculate total number of pages
+        try {
+            // Lấy tổng số đánh giá
+            const [totalResult] = await connection.execute(
+                'SELECT COUNT(*) as totalCount FROM danh_gia WHERE product_id = ?', 
+                [productId]
+            );
+            totalCount = totalResult[0].totalCount;
+            console.log('Total count query successful:', totalCount);
+        } catch (countError) {
+            console.error('Lỗi khi đếm tổng số đánh giá:', countError);
+            return res.status(500).json({ 
+                message: 'Lỗi khi đếm tổng số đánh giá',
+                error: countError.message
+            });
+        }
+
+        try {
+            // Sử dụng cách an toàn hơn để tránh vấn đề với LIMIT và OFFSET
+            const query = `SELECT * FROM danh_gia WHERE product_id = ? ORDER BY created_at ${orderBy} LIMIT ${parseInt(limit)} OFFSET ${parseInt(offset)}`;
+            console.log('Executing query:', query);
+            
+            const [fetchedRows] = await connection.execute(
+                query,
+                [productId]
+            );
+            rows = fetchedRows;
+            console.log('Fetch reviews query successful, got', rows.length, 'rows');
+        } catch (rowsError) {
+            console.error('Lỗi khi lấy danh sách đánh giá:', rowsError);
+            return res.status(500).json({ 
+                message: 'Lỗi khi lấy danh sách đánh giá',
+                error: rowsError.message
+            });
+        }
+
+        // Tính tổng số trang
         const totalPages = Math.ceil(totalCount / limit);
 
         res.json({ 
@@ -2196,10 +2221,10 @@ app.get('/api/san-pham/:productId/danh-gia', async (req, res) => {
             limit
         });
     } catch (error) {
-        console.error('Lỗi khi lấy danh sách đánh giá:', error);
+        console.error('Lỗi chung khi xử lý request:', error);
         res.status(500).json({ 
-            message: 'Lỗi khi lấy danh sách đánh giá',
-            error: error.message 
+            message: 'Lỗi khi xử lý yêu cầu',
+            error: error.message
         });
     }
 });
