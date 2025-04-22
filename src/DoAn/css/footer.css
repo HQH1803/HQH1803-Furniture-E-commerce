@@ -1,142 +1,253 @@
 .footer {
     background-color: #f8f9fa;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
 }
+
 .footer-container {
-    padding-bottom: 45px;
-    margin-top: 85px;
+    padding-bottom: 30px;
+    margin-top: 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
+
 img {
     max-width: 100%;
     height: auto;
 } 
 
 .footer-top {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 10px 10px 40px;
+    padding: 0 20px;
 }
+
 .footer-content {
-    font-size: 14.5px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 1000px;
+    opacity: 1;
+    overflow: hidden;
 }
-  
+
 .footer-section {
     flex-basis: 25%;
-    margin-bottom: 20px;
-    padding: 0 25px;
+    padding: 0 15px;
+    margin-bottom: 30px;
 }
+
 .footer-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-  
-.footer-section .footer-contact ul li {
-    margin-bottom: 5px;
-    position: relative;
-    padding-left: 30px; 
-}
-  
-.footer-section p {
-    margin-bottom: 5px;
-    font-size: 14.5px;
-    text-align: justify;
-}
-  .footer-contact {
-    background-size: 15px 15px !important;
-    line-height: 22px;
-    font-size: 13px;
-}
-  .footer-title {
-    margin: 5px 0 20px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #222;
-    text-transform: uppercase;
-}
-.fBlock-logo-bct img {
-    max-width: 180px;
-}
-ul.infoList-social li {
-    display: inline-block;
-    margin: 15px 10px 0 0;
-} ul.infoList-social li a {
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    border-radius: 50%;
-    font-size: 15px;
-    color: #fff;
-    text-align: center;
-    transition: all 0.4s ease;
-}
-  
-ul .contact-1::before {
-content: "\F3E7"; /* Ký tự mã Unicode của biểu tượng biến thể */
-font-family: "bootstrap-icons"; /* Font chứa biểu tượng */
-position: absolute;
-left: 0;
-top: 0; 
-}
-ul .contact-2::before {
-    content: "\F5B4"; /* Ký tự mã Unicode của biểu tượng biến thể */
-    font-family: "bootstrap-icons"; /* Font chứa biểu tượng */
-    position: absolute;
-    left: 0;
-    top: 0; 
-}
-ul .contact-3::before {
-    content: "\F32C"; /* Ký tự mã Unicode của biểu tượng biến thể */
-    font-family: "bootstrap-icons"; /* Font chứa biểu tượng */
-    position: absolute;
-    left: 0;
-    top: 0; 
-}  
 
-ul.infoList-social li a:after {
+.footer-section ul li a {
+    color: #666;
+    text-decoration: none;
+    line-height: 2;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ef683a;
+}
+
+.footer-section .footer-contact ul li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 28px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.footer-section p {
+    margin-bottom: 15px;
+    color: #666;
+    line-height: 1.8;
+}
+
+.footer-contact {
+    font-size: 14px;
+}
+
+.footer-title {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    position: relative;
+    padding: 15px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-title:after {
+    display: none;
+}
+
+.dropdown-icon {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    display: none;
+}
+
+.dropdown-icon:before,
+.dropdown-icon:after {
     content: '';
     position: absolute;
+    background-color: #333;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-icon:before {
+    width: 12px;
+    height: 2px;
+    top: 5px;
     left: 0;
+}
+
+.dropdown-icon:after {
+    width: 2px;
+    height: 12px;
+    left: 5px;
     top: 0;
-    width: 100%;
-    height: 100%;
-    border: 5px solid #222;
+}
+
+.footer-title.active .dropdown-icon:after {
+    transform: rotate(90deg);
+}
+
+.fBlock-logo-bct {
+    margin-top: 20px;
+}
+
+.fBlock-logo-bct img {
+    max-width: 150px;
+}
+
+ul.infoList-social {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+    list-style: none;
+    padding: 0;
+}
+
+ul.infoList-social li {
+    margin: 0;
+} 
+
+ul.infoList-social li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    opacity: 0;
-    transition: all 0.4s ease;
-    transform: scale(1);
+    background-color: #f0f0f0;
+    transition: all 0.3s ease;
 }
-ul.infoList-social li a:hover:after {
-    opacity: 0.5;
-    filter: alpha(opacity = 100);
-    -webkit-transform: scale(1.3);
-    -ms-transform: scale(1.3);
-    -o-transform: scale(1.3);
-    transform: scale(1.3);
+
+ul.infoList-social li a:hover {
+    background-color: #ef683a;
+    transform: translateY(-3px);
 }
-ul.menuList-footer li {
-    display: inline-block;
-    margin: 0 12px;
-    vertical-align: middle;
-    position: relative;
+
+ul.infoList-social li a img {
+    width: 20px;
+    height: 20px;
 }
-ul.menuList-footer li a {
-    color: #666;
-    line-height: 25px;
-}
+
 .footer-bottom {
-    background: #151515;
-    display: block;
-    overflow: hidden;
-    padding: 20px 0;
+    background: #333;
+    padding: 15px 0;
+    text-align: center;
 }
+
 .footer-bottom p, .footer-bottom a {
     margin: 0;
     color: #fff;
-    font-size: 13.5px;
+    font-size: 13px;
+}
+
+.footer-bottom a {
+    color: #ef683a;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .footer {
+        padding-top: 30px;
+    }
+
+    .footer-section {
+        flex-basis: 100%;
+        margin-bottom: 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-icon {
+        display: block;
+    }
+
+    .footer-title {
+        margin: 0;
+        padding: 15px 0;
+    }
+
+    .footer-content {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0 15px;
+    }
+
+    .footer-content.show {
+        max-height: 1000px;
+        opacity: 1;
+        margin-bottom: 15px;
+    }
+
+    .footer-section:last-child {
+        border-bottom: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        padding-top: 20px;
+    }
+
+    .footer-title {
+        font-size: 14px;
+        padding: 12px 0;
+    }
+
+    .footer-content {
+        font-size: 12px;
+    }
+
+    .dropdown-icon {
+        width: 10px;
+        height: 10px;
+    }
+
+    .dropdown-icon:before {
+        width: 10px;
+        top: 4px;
+    }
+
+    .dropdown-icon:after {
+        height: 10px;
+        left: 4px;
+    }
 }

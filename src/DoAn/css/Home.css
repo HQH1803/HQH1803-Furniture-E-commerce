@@ -81,61 +81,221 @@ span.view-more a:hover{
 }
 /* Định dạng chung cho thẻ tin tức */
 .news-card {
-  border: 1px solid #ddd; /* Viền xung quanh thẻ */
-  border-radius: 8px; /* Bo góc cho thẻ */
-  overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài viền */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho thẻ */
-  background-color: #fff; /* Màu nền của thẻ */
-  display: flex; /* Sử dụng Flexbox */
-  flex-direction: column; /* Đặt các phần tử theo chiều dọc */
-  height: 100%; /* Chiều cao của thẻ */
-  margin-bottom: 20px; /* Khoảng cách dưới mỗi thẻ */
-  transition: transform 0.3s ease; /* Hiệu ứng khi di chuột vào thẻ */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
 }
 
 .news-card:hover {
-  transform: scale(1.05); /* Phóng to nhẹ khi di chuột vào */
+  transform: scale(1.02);
 }
 
 .news-image-link {
-  display: block; /* Đảm bảo liên kết bao quanh ảnh */
+  display: block;
 }
 
 .news-image {
-  width: 100%; /* Chiều rộng ảnh bằng 100% của thẻ */
-  height: 165px; 
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
 .news-info {
-  padding: 15px; /* Khoảng cách xung quanh nội dung */
-  flex-grow: 1; /* Cho phép nội dung mở rộng để chiếm không gian còn lại */
-  display: flex; /* Sử dụng Flexbox */
-  flex-direction: column; /* Đặt các phần tử theo chiều dọc */
-  margin-bottom: 0px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .news-title {
-  font-size: 18px; /* Kích thước chữ tiêu đề */
-  margin: 0; /* Xóa khoảng cách mặc định của tiêu đề */
-  font-weight: bold; /* Đậm chữ tiêu đề */
-  color: #333; /* Màu chữ tiêu đề */
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  height: 44px;
+}
+
+.news-title a {
+  color: #333;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .news-content {
-  font-size: 14px; /* Kích thước chữ nội dung */
-  color: #666; /* Màu chữ nội dung */
-  margin-top: 10px; /* Khoảng cách trên của nội dung */
-  word-wrap: break-word;
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  height: 40px;
+  margin-top: 40px;
 }
 
 .news-date {
-  font-size: 12px; /* Kích thước chữ ngày đăng */
-  color: #999; /* Màu chữ ngày đăng */
-  margin-top: auto; /* Đẩy ngày đăng xuống dưới cùng của thẻ */
-  text-align: right; /* Canh phải cho ngày đăng */
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+  text-align: right;
 }
 
-  
+/* Đảm bảo các card trong cùng một row có chiều cao bằng nhau */
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.col-md-3.col-sm-6 {
+  margin-bottom: 20px;
+  height: 320px;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper-heading-home h2 {
+    font-size: 22px;
+    padding: 5px 0 15px;
+    margin-top: 20px;
+  }
+
+  .col-md-4.col-xs-12.col-sm-4.padding-img,
+  .col-md-8.col-xs-12.col-sm-8.padding-img {
+    padding: 5px;
+  }
+
+  .col-md-12.col-xs-6.col-sm-12.no_pdr.padding-img {
+    padding: 5px 0;
+  }
+
+  .col-md-6.col-xs-6.col-sm-6.padding-img.pd_lr {
+    padding: 5px;
+  }
+
+  .row {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .fade-box img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .col-md-4 .fade-box img {
+    height: 200px;
+  }
+
+  .col-md-8 .fade-box img {
+    height: 300px;
+  }
+
+  .col-md-6 .fade-box img {
+    height: 150px;
+  }
+
+  .news-card {
+    height: 100%;
+  }
+
+  .col-md-3.col-sm-6 {
+    width: 50%;
+    float: left;
+    padding: 0 5px;
+    margin-bottom: 10px;
+    height: 358px;
+  }
+
+  .news-image {
+    height: 120px;
+  }
+
+  .news-info {
+    margin-top: 65px;
+  }
+  .footer-top .col-md-3.col-sm-6{
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .col-md-3.col-sm-6 {
+    width: 100%;
+    float: none;
+    height: auto !important;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  .news-card {
+    margin-bottom: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .news-image {
+    height: 195px !important;
+    width: 100%;
+  }
+
+  .news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .news-info {
+    padding: 15px;
+    margin-top: 0;
+    flex: 1;
+  }
+
+  .news-title {
+    font-size: 14px;
+    margin-bottom: 8px;
+    height: auto;
+    max-height: 40px;
+    overflow: hidden;
+  }
+
+  .news-content {
+    font-size: 12px;
+    margin: 8px 0;
+    height: auto;
+    max-height: 34px;
+  }
+
+  .news-date {
+    font-size: 11px;
+    margin-top: auto;
+  }
+
+  .site-animation h2 {
+    font-size: 18px;
+  }
+
+  .site-animation .view-more {
+    font-size: 14px;
+    bottom: 32px;
+  }
+}
 
 /* Hotline Circle Animation */
 .hotline-phone-ring-circle {
@@ -375,4 +535,150 @@ ul.left-icon.hotline {
 
 .float-icon-hotline ul li .fa-messenger:hover {
     background:url(https://static.vecteezy.com/system/resources/previews/022/488/748/original/3d-render-meta-chat-messenger-facebook-messenger-icon-bubble-isolated-on-transparent-background-free-png.png) center center no-repeat;opacity:.5;
+}
+
+/* Responsive cho các icon */
+@media screen and (max-width: 768px) {
+    .float-icon-hotline {
+      bottom: 60px;
+      left: 25px;
+    }
+
+    .float-icon-hotline ul li .fa-zalo {
+        width: 40px;
+        height: 40px;
+        background-size: contain;
+        margin: -5px;
+    }
+
+    .float-icon-hotline ul li .fa-messenger {
+        width: 30px;
+        height: 30px;
+        background-size: contain;
+    }
+
+    .hotline-phone-ring-wrap {
+        bottom: 0;
+        left: 0;
+    }
+
+    .hotline-phone-ring {
+        width: 80px;
+        height: 80px;
+    }
+
+    .hotline-phone-ring-circle {
+        width: 65px;
+        height: 65px;
+        top: 8px;
+        left: 8px;
+    }
+
+    .hotline-phone-ring-circle-fill {
+        width: 45px;
+        height: 45px;
+        top: 18px;
+        left: 18px;
+    }
+
+    .hotline-phone-ring-img-circle {
+        width: 25px;
+        height: 25px;
+        top: 28px;
+        left: 28px;
+    }
+
+    .hotline-bar {
+        width: 165px;
+        height: 35px;
+        left: 25px;
+        bottom: 32px;
+    }
+
+    .hotline-bar > a {
+        font-size: 14px;
+        line-height: 32px;
+        text-indent: 35px;
+    }
+
+    .float-icon-hotline ul li span {
+        height: 35px;
+        line-height: 32px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .float-icon-hotline {
+      bottom: 50px;
+      left: 19px;
+    }
+
+    .float-icon-hotline ul li .fa-zalo {
+        width: 35px;
+        height: 35px;
+        margin: -3px;
+    }
+
+    .float-icon-hotline ul li .fa-messenger {
+        width: 25px;
+        height: 25px;
+    }
+
+    .hotline-phone-ring {
+        width: 60px;
+        height: 60px;
+    }
+
+    .hotline-phone-ring-circle {
+        width: 50px;
+        height: 50px;
+        top: 5px;
+        left: 5px;
+    }
+
+    .hotline-phone-ring-circle-fill {
+        width: 35px;
+        height: 35px;
+        top: 13px;
+        left: 13px;
+    }
+
+    .hotline-phone-ring-img-circle {
+        width: 20px;
+        height: 20px;
+        top: 20px;
+        left: 20px;
+    }
+
+    .hotline-phone-ring-img-circle .pps-btn-img img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .hotline-bar {
+        width: 140px;
+        height: 30px;
+        left: 20px;
+        bottom: 25px;
+        padding: 0 5px;
+    }
+
+    .hotline-bar > a {
+        font-size: 13px;
+        line-height: 27px;
+        text-indent: 32px;
+        letter-spacing: 0;
+    }
+
+    .float-icon-hotline ul li span {
+        height: 30px;
+        line-height: 27px;
+        font-size: 13px;
+        left: 10px;
+    }
+
+    .float-icon-hotline ul li {
+        margin-bottom: 6px;
+    }
 }

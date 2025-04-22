@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { message} from 'antd';
 import { useUser } from '../contexts/UserContext'; 
+import '../css/SanPhamMoi.css';
+
 const SanPhamMoi = () => {
     const { customerUser } = useUser();  // Access both admin and customer use
   const [sanphammoi, setSanphammoi] = useState([]);

@@ -9,10 +9,11 @@ import '../css/all.css';
 const Header = () => {
     const navigate = useNavigate();
     const { cart } = useCart();
-    const { customerUser,logout} = useUser();
+    const { customerUser, logout } = useUser();
     const [menuOpen, setMenuOpen] = useState(false);
     const [isHeaderFixed, setIsHeaderFixed] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
 
     // Fetch data from API
     useEffect(() => {
@@ -27,21 +28,25 @@ const Header = () => {
         };
         fetchData();
     }, []);
+
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
 
+    const toggleUserMenu = () => {
+        setUserMenuOpen(!userMenuOpen);
+    };
+
     const handleSubmit = (e) => {
-        e.preventDefault(); // Ngăn trình duyệt tải lại trang
-        const searchQuery = e.target.q.value.trim(); // Lấy giá trị ô input và loại bỏ khoảng trắng
+        e.preventDefault();
+        const searchQuery = e.target.q.value.trim();
     
         if (!searchQuery) {
-            alert("Vui lòng nhập từ khóa tìm kiếm!"); // Hiển thị thông báo lỗi
-            return; // Ngừng xử lý nếu ô tìm kiếm để trống
+            alert("Vui lòng nhập từ khóa tìm kiếm!");
+            return;
         }
     
         navigate(`/search/${searchQuery}`);
-        // Gọi API hoặc điều hướng trang kết quả tìm kiếm
     };
     
     useEffect(() => {
@@ -51,35 +56,45 @@ const Header = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-  
+    // Close menus when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (userMenuOpen && !event.target.closest('.user-dropdown')) {
+                setUserMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [userMenuOpen]);
+
     return (
         <header className={`header ${isHeaderFixed ? 'header-fixed' : ''}`}>
             <div className="header-main">
-                <Link to="/" aria-label="logo" style={{ width: '8%' }}>
+                <Link to="/" className="logo">
                     <img src={require("../images/Logo/logo1.png")} alt="Nội Thất Tinie" />
                 </Link>
+
                 <form className="search-bar" onSubmit={handleSubmit}>
                     <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..." />
                     <button type="submit"><i className="bi bi-search"></i></button>
                 </form>
+
                 <div className="header-right">
                     {customerUser ? (
                         <div className="user-dropdown">
-                            <button className="user-dropdown-button" onClick={toggleMenu}>
+                            <button className="user-dropdown-button" onClick={toggleUserMenu}>
                                 {customerUser.ho_ten || 'Tên người dùng'}
-                                <i className={`bi bi-chevron-${menuOpen ? 'up' : 'down'}`}></i>
+                                <i className={`bi bi-chevron-${userMenuOpen ? 'up' : 'down'}`}></i>
                             </button>
-                            <div className={`user-dropdown-menu ${menuOpen ? 'open' : ''}`}>
+                            <div className={`user-dropdown-menu ${userMenuOpen ? 'open' : ''}`}>
                                 <Link to="/thongtincanhan" className="dropdown-item">Thông Tin Cá Nhân</Link>
                                 <Link to="/danhsachdonhang" className="dropdown-item">Xem Đơn Hàng</Link>
                                 <Link to="/yeuthich" className="dropdown-item">Danh Sách Yêu Thích</Link>
-                                <button  onClick={() => logout('customer')} className="logout-button">Đăng Xuất</button>
+                                <button onClick={() => logout('customer')} className="logout-button">Đăng Xuất</button>
                             </div>
                         </div>
                     ) : (
@@ -95,31 +110,37 @@ const Header = () => {
                             <span className="cart-count">{cart.length}</span>
                         </Link>
                     </div>
+
+                    <div className="menu-icon" onClick={toggleMenu}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
+
             <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
-            <ul className="menuList-main">
-                    <li className="has-submenu levl-1">
-                        <Link to="#" title="Danh Mục"> 
+                <ul className="menuList-main">
+                    <li className="has-submenu">
+                        <Link to="#" title="Danh Mục">
                             Danh Mục
                             <i className="bi bi-chevron-down"></i>
                         </Link>
-                        <ul className="menuList-submain level-1">
+                        <ul className="menuList-submain">
                             {categories.map((category) => (
-                                <li className="has-submenu levl-2" key={category.LoaiPhongID}>
+                                <li className="has-submenu" key={category.LoaiPhongID}>
                                     <Link to={`/sanphams/${removeAccents(category.LoaiPhong.toLowerCase().replace(/\s+/g, '-'))}`} title={category.LoaiPhong}>
-                                        {category.LoaiPhong} 
-                                        {/* Nếu không phải 'Phòng ăn' mới hiển thị biểu tượng */}
+                                        {category.LoaiPhong}
                                         {category.LoaiPhong !== 'Phòng ăn' && <i className="bi bi-chevron-right"></i>}
                                     </Link>
-                                    {category.LoaiPhong !== 'Phòng ăn'&&category.SanPham && (
+                                    {category.LoaiPhong !== 'Phòng ăn' && category.SanPham && (
                                         <ul className="menuList-submain level-2">
                                             {category.SanPham.split(', ').map((item) => {
                                                 const [id, name] = item.split(':');
                                                 return (
                                                     <li key={id}>
                                                         <Link 
-                                                            to={`/sanphams/${category.LoaiPhongID}/${removeAccents(name.toLowerCase().replace(/\s+/g, '-'))}`} 
+                                                            to={`/sanphams/${category.LoaiPhongID}/${removeAccents(name.toLowerCase().replace(/\s+/g, '-'))}`}
                                                             title={name}
                                                         >
                                                             {name}
@@ -133,22 +154,22 @@ const Header = () => {
                             ))}
                         </ul>
                     </li>
-                    <li className="has-submenu levl-1">
-                        <Link to="/sanphams/tat-ca-san-pham" title="Tất Cả Sản phẩm"> 
+                    <li>
+                        <Link to="/sanphams/tat-ca-san-pham" title="Tất Cả Sản phẩm">
                             Tất Cả Sản phẩm
                         </Link>
                     </li>
-                    <li className="has-submenu active levl-1">
-                        <Link to="/tintuc" title="Tin Tức"> 
+                    <li>
+                        <Link to="/tintuc" title="Tin Tức">
                             Tin Tức
                         </Link>
                     </li>
-                    <li className="has-submenu active levl-1">
-                        <Link to="/showroom" title="Showroom"> 
+                    <li>
+                        <Link to="/showroom" title="Showroom">
                             Showroom
                         </Link>
                     </li>
-            </ul>
+                </ul>
             </nav>
         </header>
     );
