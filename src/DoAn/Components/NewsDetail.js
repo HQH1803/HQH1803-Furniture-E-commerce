@@ -9,7 +9,7 @@ import ServiceList from './ServiceList';
 import FacebookSDK from './FacebookSDK';
 
 const NewsDetail = () => {
-    const { id } = useParams(); // Get the article ID from the URL
+    const { id } = useParams();
     const [newsItem, setNewsItem] = useState(null);
     const articleUrl = `${process.env.REACT_APP_API_BASE_URL}/api/chi-tiet-tin-tuc/${id}`;
     
@@ -22,60 +22,56 @@ const NewsDetail = () => {
     }, [id]);
     
     useEffect(() => {
-        // Re-initialize Facebook comments plugin after Facebook SDK is loaded
         if (window.FB) {
-          window.FB.XFBML.parse();
+            window.FB.XFBML.parse();
         }
-      }, [id]); // Re-run when productId changes
+    }, [id]);
 
     if (!newsItem) return <div>Loading...</div>;
 
     return (
         <div className='container'>
-            <div className="news-detail-page">
-                <div className="sidebar">
-                    <LatestNews /> {/* Sidebar with the latest news */}
-                </div>
-                <div className="main-content-new">
-                    <div className="news-detail-container">
-                        <h1 className="news-title">{newsItem.tieu_de}</h1>
-                        <div className="news-meta">
-                            <div className="news-date">{format(new Date(newsItem.ngay_dang), 'dd/MM/yyyy')}</div>
-                            
-                            {/* Facebook Share Button */}                
-                            
-                             <FacebookSDK />            
-                            <div className="news-views">Lượt xem: {newsItem.luot_xem} 
-                            </div>
-                            
-                            
-                        </div>
-                        <div>
-                                <span className="fb-share-button" 
+            <div className="news-container">
+                <div className="main-content">
+                    <article className="news-detail-article">
+                        <div className="news-detail-header">
+                            <h1 className="news-detail-title">{newsItem.tieu_de}</h1>
+                            <div className="news-meta">
+                                <span className="news-date">
+                                    {format(new Date(newsItem.ngay_dang), 'dd/MM/yyyy')}
+                                </span>
+                                <span className="news-views">
+                                    Lượt xem: {newsItem.luot_xem}
+                                </span>
+                                <div className="fb-share-button" 
                                     data-href={articleUrl}  
                                     data-size="large">
-                                    <a 
-                                        target="_blank" 
-                                        href={`https://www.facebook.com/sharer/sharer.php?u=${articleUrl}`} 
-                                        className="fb-xfbml-parse-ignore">
+                                    <a target="_blank" 
+                                       href={`https://www.facebook.com/sharer/sharer.php?u=${articleUrl}`} 
+                                       className="fb-xfbml-parse-ignore">
+                                        Chia sẻ
                                     </a>
-                                </span>
+                                </div>
                             </div>
-                        <div className="news-content">
+                        </div>
+                        <div className="news-detail-content">
                             {parse(newsItem.noi_dung)}
                         </div>
-                    </div>
-                </div>                
+                        <div className="news-detail-comments">
+                            <h3 className="comments-title">Bình luận</h3>
+                            <div className="fb-comments" 
+                                data-href={articleUrl} 
+                                data-width="100%" 
+                                data-numposts="5">
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div className="sidebar">
+                    <LatestNews />
+                </div>
             </div>
-            <div>
-                <div className='title-comment' >Bình luận</div>
-                <div className="fb-comments" 
-                data-href={articleUrl} 
-                data-width="100%" 
-                data-numposts="5">
-            </div>
-            </div>            
-            <ServiceList/>     
+            <ServiceList />
         </div>
     );
 };

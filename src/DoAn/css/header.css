@@ -204,11 +204,28 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     min-width: 200px;
     display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
     z-index: 1000;
+    padding: 0;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
 }
 
-.menuList-main > li:hover > .menuList-submain {
+.menuList-submain.show {
     display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Xóa rule hover cũ */
+.menuList-main > li:hover > .menuList-submain {
+    display: none;
+}
+
+.menuList-main > li:hover > a i {
+    color: #000;
 }
 
 .menuList-submain li a {
@@ -244,12 +261,10 @@
     .search-bar {
         max-width: 400px;
     }
+    
 }
 
 @media (max-width: 768px) {
-    .header-main {
-        padding: 10px;
-    }
 
     .logo {
         width: 120px;
@@ -283,6 +298,7 @@
 
     .header-nav.open {
         display: block;
+        z-index: 20;
     }
 
     .menuList-main {
@@ -410,10 +426,34 @@ ul.menuList-submain li a:hover i {
 }
 .menuList-submain .level-2 {
     padding: 0;
-    position: absolute;
-    left: 90%;
-    margin-top: -37.5px;
+    position: relative;
+    left: 0;
+    margin-top: 0;
+    margin-left: 5px;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: none;
+    background: #83818114;
 }
+.menuList-submain .level-2.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+.menuList-submain .level-2 li a {
+    padding: 8px 18px;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+}
+.menuList-submain .level-2 li a:hover {
+    background-color: #81c0d758;
+    color: #000000;
+}
+
 .menuList-main {
     list-style: none;
     margin: 0;
@@ -443,8 +483,13 @@ ul.menuList-submain li a:hover i {
     border: 1px solid #ddd;
 }
 
-.menuList-main li:hover > ul {
+.menuList-main ul.show {
     display: block;
+}
+
+/* Xóa rule hover cũ */
+.menuList-main li:hover > ul {
+    display: none;
 }
 
 .menuList-main ul li {
@@ -459,6 +504,11 @@ ul.menuList-submain li a:hover i {
 }
 
 .menuList-main ul li a:hover {
-    color: #276880;
-    background-color: #f8f8f8;
+    color: #ffffff;
+    background-color: #276880b7;
+}
+
+.bi-chevron-up,
+.bi-chevron-down {
+    transition: transform 0.3s ease;
 }

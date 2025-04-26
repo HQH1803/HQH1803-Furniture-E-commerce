@@ -10,11 +10,19 @@ const ProductList = ({ apiUrl, showCategories, title }) => {
   const [sanpham, setSanpham] = useState([]);
   const [filteredSanpham, setFilteredSanpham] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 9;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortOption, setSortOption] = useState('newest');
-
+  const [productsPerPage, setProductsPerPage] = useState(window.innerWidth <= 480 ? 3 : 9);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setProductsPerPage(window.innerWidth <= 480 ? 3 : 9);
+    };
+  
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -45,7 +53,9 @@ const ProductList = ({ apiUrl, showCategories, title }) => {
       console.log("KQMau",matchesColor)
       // Xử lý lọc loại
       const matchesCategory = categories.length === 0 || categories.includes(product.id_loaiSP);
-      
+      console.log("KQLoaiSP",matchesCategory)
+      console.log("KQLoaiSP",product.id_loaiSP)
+
       // Xử lý lọc kích thước
       const productSizes = product.kich_thuoc_ids ? product.kich_thuoc_ids.split(',').map(id => id.trim()) : [];
       const sizesString = sizes.map(sizeId => String(sizeId));

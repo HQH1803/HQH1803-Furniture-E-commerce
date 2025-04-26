@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import removeAccents from 'remove-accents';
 import { useCart } from '../contexts/CartContext';
 import { useUser } from '../contexts/UserContext';
@@ -8,12 +8,23 @@ import '../css/all.css';
 
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { cart } = useCart();
     const { customerUser, logout } = useUser();
     const [menuOpen, setMenuOpen] = useState(false);
     const [isHeaderFixed, setIsHeaderFixed] = useState(false);
     const [categories, setCategories] = useState([]);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
+    const [activeSubmenu, setActiveSubmenu] = useState(null);
+
+    // Đóng menu khi route thay đổi
+    useEffect(() => {
+        setMenuOpen(false);
+        setUserMenuOpen(false);
+        setCategoryMenuOpen(false);
+        setActiveSubmenu(null);
+    }, [location.pathname]);
 
     // Fetch data from API
     useEffect(() => {
@@ -35,6 +46,27 @@ const Header = () => {
 
     const toggleUserMenu = () => {
         setUserMenuOpen(!userMenuOpen);
+    };
+
+    const toggleCategoryMenu = (e) => {
+        e.preventDefault();
+        setCategoryMenuOpen(!categoryMenuOpen);
+        setActiveSubmenu(null);
+    };
+
+    const toggleSubmenu = (e, categoryId, categoryName) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (activeSubmenu === categoryId) {
+            // Nếu submenu đang mở, chuyển hướng đến trang phòng
+            navigate(`/sanphams/${removeAccents(categoryName.toLowerCase().replace(/\s+/g, '-'))}`);
+            setCategoryMenuOpen(false);
+            setActiveSubmenu(null);
+        } else {
+            // Nếu submenu chưa mở, mở submenu
+            setActiveSubmenu(categoryId);
+        }
     };
 
     const handleSubmit = (e) => {
@@ -122,19 +154,25 @@ const Header = () => {
             <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
                 <ul className="menuList-main">
                     <li className="has-submenu">
-                        <Link to="#" title="Danh Mục">
+                        <Link to="#" title="Danh Mục" onClick={toggleCategoryMenu}>
                             Danh Mục
-                            <i className="bi bi-chevron-down"></i>
+                            <i className={`bi bi-chevron-${categoryMenuOpen ? 'up' : 'down'}`}></i>
                         </Link>
-                        <ul className="menuList-submain">
+                        <ul className={`menuList-submain ${categoryMenuOpen ? 'show' : ''}`}>
                             {categories.map((category) => (
                                 <li className="has-submenu" key={category.LoaiPhongID}>
-                                    <Link to={`/sanphams/${removeAccents(category.LoaiPhong.toLowerCase().replace(/\s+/g, '-'))}`} title={category.LoaiPhong}>
+                                    <Link 
+                                        to="#" 
+                                        onClick={(e) => toggleSubmenu(e, category.LoaiPhongID, category.LoaiPhong)}
+                                        title={category.LoaiPhong}
+                                    >
                                         {category.LoaiPhong}
-                                        {category.LoaiPhong !== 'Phòng ăn' && <i className="bi bi-chevron-right"></i>}
+                                        {category.LoaiPhong !== 'Phòng ăn' && (
+                                            <i className={`bi bi-chevron-${activeSubmenu === category.LoaiPhongID ? 'down' : 'right'}`}></i>
+                                        )}
                                     </Link>
                                     {category.LoaiPhong !== 'Phòng ăn' && category.SanPham && (
-                                        <ul className="menuList-submain level-2">
+                                        <ul className={`menuList-submain level-2 ${activeSubmenu === category.LoaiPhongID ? 'show' : ''}`}>
                                             {category.SanPham.split(', ').map((item) => {
                                                 const [id, name] = item.split(':');
                                                 return (

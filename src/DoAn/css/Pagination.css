@@ -56,3 +56,11 @@
 .page-item.prev .page-link, .page-item.next .page-link {
   font-weight: bold;
 }
+@media (max-width: 480px) {
+  .page-link {
+    padding: 3px 10px;
+  }
+  .pagination{
+    max-width: 290px;
+  }
+}
