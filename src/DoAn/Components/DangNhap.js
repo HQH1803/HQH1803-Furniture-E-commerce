@@ -121,7 +121,7 @@ const handleLoginSubmit = async (event) => {
                     <h2>Đăng nhập</h2>
                     <p>Đăng nhập bằng mạng xã hội</p>
                     <div className="social-login">
-                        <GoogleLogin
+                        <GoogleLogin className='btn-google'
                             onSuccess={handleGoogleLogin} // Xử lý đăng nhập thành công
                             onError={() => {
                                 console.log('Đăng nhập không thành công');

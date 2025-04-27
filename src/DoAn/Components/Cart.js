@@ -165,7 +165,7 @@ const Cart = () => {
                             </div>
                             <div className="order_total_price">
                                 <p>Tổng tiền: <span>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}</span></p>
-                                <p style={{display:"inline-flex"}}>Tổng số lượng: <span style={{marginLeft: "171px", fontSize: "18px", width: "40px",textAlign:"right"}}>{totalQuantity}</span></p>
+                                <p style={{display:"flow-root"}}>Tổng số lượng: <span style={{marginLeft: "171px", fontSize: "18px", width: "40px",textAlign:"right"}}>{totalQuantity}</span></p>
                             </div>
                             <div className="order_cart_action">
                                 <div className="cart-buttons">

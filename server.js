@@ -14,7 +14,7 @@ const cron = require('node-cron');
 const bodyParser = require('body-parser');
 
 const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client('280214824726-obdubefdgijm5csrr7fijrgpku83hla6.apps.googleusercontent.com'); 
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID); 
 
 
 const app = express();
@@ -220,7 +220,7 @@ app.post('/api/google-login', async (req, res) => {
     try {
         const ticket = await client.verifyIdToken({
             idToken: idToken,
-            audience: '280214824726-obdubefdgijm5csrr7fijrgpku83hla6.apps.googleusercontent.com',
+            audience: process.env.GOOGLE_CLIENT_ID,
         });
 
         const payload = ticket.getPayload();
@@ -2801,7 +2801,7 @@ app.post("/api/tinh-doanh-thu", async (req, res) => {
 
 cron.schedule('59 23 * * *', async () => {
     try {
-      await axios.post('http://https://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
+      await axios.post('http://furniture-e-commerce-wt2i.onrender.com/api/tinh-doanh-thu');
       console.log('Đã cập nhật doanh thu');
     } catch (error) {
       console.error('Lỗi khi cập nhật doanh thu:', error);

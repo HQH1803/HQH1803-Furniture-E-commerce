@@ -22,9 +22,7 @@
     padding-top: 15px;
     font-weight: bold;
 }
-.wamper_order_cart .order_block .order_total_price p {
-    margin: 0 0 10px;
-}
+
 .wamper_order_cart .order_block .order_total_price p span {
     font-weight: bold;
     float: right;
@@ -203,15 +201,12 @@ table.table-cart tr td.remove a i{
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
     .table-cart td, .table-cart th {
         padding: 5px;
     }
 
-    .qty {
-        flex-direction: column;
-    }
-
+    
     .qty input {
         margin: 5px 0;
     }

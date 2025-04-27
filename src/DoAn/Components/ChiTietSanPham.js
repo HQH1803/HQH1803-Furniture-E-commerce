@@ -156,7 +156,7 @@ const ChiTietSanPham = () => {
               <FacebookSDK />
               <div className="fb-comments" 
                 data-href={articleUrl} 
-                data-width="100%" 
+                data-width="95%" 
                 data-numposts="5">
               </div>
             </div>       

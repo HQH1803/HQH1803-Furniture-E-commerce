@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/ServiceList.css';
 
 const ServiceList = () => {
   return (

@@ -68,7 +68,7 @@ export const UserProvider = ({ children }) => {
             } else if (userData.role === 'customer') {
                 setCustomerUser(userData);
                 localStorage.setItem('customer_user', JSON.stringify(userData)); // Lưu thông tin customer vào localStorage
-                navigate('/');
+                navigate(-1); // Quay lại trang trước đó
             }
 
             return data.message;
